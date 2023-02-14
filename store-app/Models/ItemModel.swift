@@ -8,11 +8,16 @@
 import Foundation
 
 struct ItemModel {
+    /// Name of the item
     let name: String
-    let price: String
-    let extra: String
     
-    init(name: String, price: String, extra: String) {
+    /// Price of the item
+    let price: String
+    
+    /// Additional details about the item
+    let extra: String?
+   
+    init(name: String, price: String, extra: String?) {
         self.name = name
         self.price = price
         self.extra = extra
