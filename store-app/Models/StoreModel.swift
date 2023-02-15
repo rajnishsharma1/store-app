@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct StoreModel {
+struct StoreModel: Codable {
     /// Status returned by the API
     let status: String
     
@@ -15,11 +15,5 @@ struct StoreModel {
     let error: String?
     
     /// List of items in the store
-    let item: [ItemModel]
-    
-    init(status: String, error: String?, item: [ItemModel]) {
-        self.status = status
-        self.error = error
-        self.item = item
-    }
+    let data: StoreData
 }

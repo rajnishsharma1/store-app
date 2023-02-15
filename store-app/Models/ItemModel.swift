@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ItemModel {
+struct ItemModel : Codable {
     /// Name of the item
     let name: String
     
@@ -23,4 +23,9 @@ struct ItemModel {
         self.extra = extra
     }
     
+    enum CodingKeys: String, CodingKey {
+      case name
+      case price
+      case extra
+    }
 }
