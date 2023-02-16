@@ -16,16 +16,7 @@ struct ItemModel : Codable {
     
     /// Additional details about the item
     let extra: String?
-   
-    init(name: String, price: String, extra: String?) {
-        self.name = name
-        self.price = price
-        self.extra = extra
-    }
     
-    enum CodingKeys: String, CodingKey {
-      case name
-      case price
-      case extra
-    }
+    /// Item image URL
+    let image: String?
 }

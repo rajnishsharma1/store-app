@@ -8,5 +8,6 @@
 import Foundation
 
 struct StoreData: Codable {
+    /// List of items in the store
     let items: [ItemModel]
 }
