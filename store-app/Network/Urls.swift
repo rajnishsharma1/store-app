@@ -8,5 +8,5 @@
 import Foundation
 
 class Urls {
-    public static let mockApi = "https://run.mocky.io/v3/b6a30bb0-140f-4966-8608-1dc35fa1fadc"
+    public static let storeApi: String = "https://run.mocky.io/v3/995ce2a0-1daf-4993-915f-8c198f3f752c"
 }

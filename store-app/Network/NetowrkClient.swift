@@ -12,8 +12,8 @@ class NetworkClient {
       
     private init() {}
     
-    func getCall(url: String) async throws -> Data {
-        let url = URL(string: Urls.mockApi)!
+    func makeApiCall(url: String) async throws -> Data {
+        let url = URL(string: url)!
         let (data, _) = try await URLSession.shared.data(from: url)
         return data
     }
