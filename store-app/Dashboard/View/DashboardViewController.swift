@@ -36,6 +36,6 @@ class DashboardViewController: UITabBarController {
         }
         
         self.modalPresentationStyle = .fullScreen
-        self.tabBar.backgroundColor = AppUtils.hexStringToUIColor(hex: Colors.tabBgColor)
+        self.tabBar.backgroundColor = AppUtils.hexStringToUIColor(hex: Colors.tabBgColor, alpha: 1)
     }
 }
