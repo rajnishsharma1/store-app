@@ -52,16 +52,13 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     }
     
     private func fetchData() {
-        Task {try await viewModel.getStoreDetails()}
+        Task {await viewModel.getStoreDetails()}
     }
     
     private func viewModelListener() {
         cancellable = viewModel.$store.sink {
-            print($0.isLoading)
             if ($0.isLoading == true) {
-                
                 Task {self.loader.showLoader(view: self.view)}
-                print("here3")
             } else if ($0.response != nil) {
                 guard let response = $0.response else {return}
                 Task {
@@ -71,11 +68,12 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
                     uiScroll.addSubview(self.myCollectionView)
                     self.view.addSubview(uiScroll)
                 }
-                print("here2")
             } else if ($0.error != nil){
-                Task {self.error.showError(view: self.view)}
-                Task {self.loader.hideLoader(view: self.view)}
-                print("here")
+                guard let error = $0.error else {return}
+                Task {
+                    self.error.showError(view: self.view, errorText: error)
+                    self.loader.hideLoader(view: self.view)
+                }
             }
         }
     }

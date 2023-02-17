@@ -75,7 +75,11 @@ class CoreDatahelper {
               for storeItem in storeItems {
                   itemList.append(ItemModel(name: storeItem.name ?? "", price: storeItem.price ?? "", extra: storeItem.extra, image: storeItem.image))
               }
-              store = StoreData(items: itemList)
+              if itemList.count == 0 {
+                  return nil
+              } else {
+                  store = StoreData(items: itemList)
+              }
           } catch {
               return nil
           }
@@ -102,7 +106,6 @@ class CoreDatahelper {
         } catch let error as NSError {
             // Delete error
             isDeleted = false
-            print("Cannot delete CoreData Entities: \(error) \(error.description)")
         }
         return isDeleted
     }

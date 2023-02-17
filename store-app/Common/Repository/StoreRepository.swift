@@ -10,6 +10,7 @@ import Foundation
 class StoreRepository {
     private let apiService: ApiService = ApiService()
     
+    // MARK: Store Detail Data
     func getStoreDetails() async -> DataWrapper<StoreData> {
         var store: DataWrapper<StoreData> = DataWrapper()
         
@@ -27,11 +28,7 @@ class StoreRepository {
         } else { // If API success
             store.response = storeResponse!.data
             // Storing API response to CoreData
-            let isSavedInCoreData = await CoreDatahelper.instance.saveInCoreData(storeData: storeResponse!.data)
-            
-            if !isSavedInCoreData {
-                // Handle if data is not stored
-            }
+            let _ = await CoreDatahelper.instance.saveInCoreData(storeData: storeResponse!.data)
         }
         return store
     }

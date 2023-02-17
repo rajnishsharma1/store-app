@@ -15,14 +15,17 @@ class ErrorView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         errorLabel = UILabel(frame: frame)
-        errorLabel.text = "Soemthing went wrong"
+        errorLabel.textAlignment = .center
+        errorLabel.textColor = .gray
+        errorLabel.font = UIFont.systemFont(ofSize: 18)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func showError(view: UIView) {
+    func showError(view: UIView, errorText: String) {
+        errorLabel.text = errorText
         view.addSubview(errorLabel)
     }
     
