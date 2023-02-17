@@ -35,6 +35,9 @@
 		D6B9DE06299E495900F2F4E9 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DE05299E495900F2F4E9 /* HeaderViewController.swift */; };
 		D6B9DE09299E96EA00F2F4E9 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DE08299E96EA00F2F4E9 /* Strings.swift */; };
 		D6B9DE0B299E96F200F2F4E9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DE0A299E96F200F2F4E9 /* Colors.swift */; };
+		D6B9DE14299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DE12299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodeld */; };
+		D6B9DEA3299F515500F2F4E9 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DEA2299F515500F2F4E9 /* CoreDataHelper.swift */; };
+		D6B9DEA5299F556900F2F4E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DEA4299F556900F2F4E9 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +90,9 @@
 		D6B9DE05299E495900F2F4E9 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		D6B9DE08299E96EA00F2F4E9 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		D6B9DE0A299E96F200F2F4E9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		D6B9DE13299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StoreCodeDataModel.xcdatamodel; sourceTree = "<group>"; };
+		D6B9DEA2299F515500F2F4E9 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		D6B9DEA4299F556900F2F4E9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +143,7 @@
 		D6664688299A5DD0004B1A76 /* store-app */ = {
 			isa = PBXGroup;
 			children = (
+				D6B9DE61299F4A0F00F2F4E9 /* CoreData */,
 				D6664728299D17C4004B1A76 /* Delegates */,
 				D666471F299D10FF004B1A76 /* ProductListingCollectionView */,
 				D666471E299D10E9004B1A76 /* ProductListingTableView */,
@@ -147,6 +154,7 @@
 				D6664694299A5DD1004B1A76 /* LaunchScreen.storyboard */,
 				D6664697299A5DD1004B1A76 /* Info.plist */,
 				D6664735299E058E004B1A76 /* AppUtils.swift */,
+				D6B9DE12299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodeld */,
 			);
 			path = "store-app";
 			sourceTree = "<group>";
@@ -296,6 +304,15 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		D6B9DE61299F4A0F00F2F4E9 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				D6B9DEA2299F515500F2F4E9 /* CoreDataHelper.swift */,
+				D6B9DEA4299F556900F2F4E9 /* Constants.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -428,13 +445,16 @@
 			files = (
 				D6664732299D5B49004B1A76 /* MockApiService.swift in Sources */,
 				D6664725299D1184004B1A76 /* ProductListingTableViewController.swift in Sources */,
+				D6B9DE14299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodeld in Sources */,
 				D6B9DE0B299E96F200F2F4E9 /* Colors.swift in Sources */,
 				D666468E299A5DD0004B1A76 /* DashboardViewController.swift in Sources */,
 				D666472F299D3487004B1A76 /* ProductListingTableItem.swift in Sources */,
 				D666472B299D17E4004B1A76 /* LoaderView.swift in Sources */,
+				D6B9DEA5299F556900F2F4E9 /* Constants.swift in Sources */,
 				D666470C299BA19D004B1A76 /* StoreData.swift in Sources */,
 				D666468A299A5DD0004B1A76 /* AppDelegate.swift in Sources */,
 				D66646FD299B5DB7004B1A76 /* ItemModel.swift in Sources */,
+				D6B9DEA3299F515500F2F4E9 /* CoreDataHelper.swift in Sources */,
 				D6B9DE06299E495900F2F4E9 /* HeaderViewController.swift in Sources */,
 				D6664715299BB2CE004B1A76 /* StoreViewModel.swift in Sources */,
 				D666470E299BA473004B1A76 /* NetowrkClient.swift in Sources */,
@@ -782,6 +802,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D6B9DE12299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D6B9DE13299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodel */,
+			);
+			currentVersion = D6B9DE13299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodel */;
+			path = StoreCodeDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D666467E299A5DD0004B1A76 /* Project object */;
 }
