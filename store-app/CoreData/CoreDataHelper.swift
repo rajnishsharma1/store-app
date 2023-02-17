@@ -103,7 +103,7 @@ class CoreDatahelper {
             // Delete successful
             try managedContext.execute(deleteRequest)
             isDeleted = true
-        } catch let error as NSError {
+        } catch _ as NSError {
             // Delete error
             isDeleted = false
         }
