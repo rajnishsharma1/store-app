@@ -19,18 +19,36 @@ final class store_appTests: XCTestCase {
     }
 
     func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        let testString = "Hello World!"
+        
+        XCTAssertEqual(testString, "Hello World!")
     }
-
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
             // Put the code you want to measure the time of here.
         }
     }
-
+    
+    func testBlackColorHexWithRGB() {
+        let hexCode = "#000000"
+        let color = AppUtils.hexStringToUIColor(hex: hexCode, alpha: 1)
+        
+        XCTAssertEqual(color, UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1))
+    }
+    
+    func testWhiteColorHexWithRGB() {
+        let hexCode = "#FFFFFF"
+        let color = AppUtils.hexStringToUIColor(hex: hexCode, alpha: 1)
+        
+        XCTAssertEqual(color, UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 1))
+    }
+    
+    func testRedColorHexWithRGB() {
+        let hexCode = "#ff0000"
+        let color = AppUtils.hexStringToUIColor(hex: hexCode, alpha: 1)
+        
+        XCTAssertEqual(color, UIColor(red: 255/255, green: 0/255, blue: 0/255, alpha: 1))
+    }
 }
