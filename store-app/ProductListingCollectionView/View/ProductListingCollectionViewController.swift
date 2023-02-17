@@ -23,12 +23,16 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     private var loader: LoaderView = LoaderView()
     private var error: ErrorView = ErrorView()
     
+    private let headerView: HeaderViewController = HeaderViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loader = LoaderView(frame: view.frame)
         error = ErrorView(frame: view.frame)
         view.backgroundColor = .white
+        
+        view.addSubview(headerView.view)
         
         fetchData()
         setupCollectionView()
@@ -38,7 +42,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     private func setupCollectionView() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: 110, height: 166)
+        layout.itemSize = CGSize(width: 90, height: 166)
         layout.scrollDirection = .vertical
         myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         

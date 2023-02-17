@@ -20,13 +20,13 @@ class HeaderViewController : UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Visual properties of root view
-        view.backgroundColor = AppUtils.hexStringToUIColor(hex: Colors.headerBgColor, alpha: 1)
+        view.backgroundColor = UIColor(named: Strings.headerBackgroundColor)
         view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 164)
 
         // Visual properties of exploreLabel
         filterLabel.text = Strings.filer
         filterLabel.font = UIFont.systemFont(ofSize: 16)
-        filterLabel.textColor = AppUtils.hexStringToUIColor(hex: Colors.filterTextColor, alpha: 1)
+        filterLabel.textColor = UIColor(named: Strings.filterTextColor)
         
         // Visual properties of exploreLabel
         exploreLabel.text = Strings.explore

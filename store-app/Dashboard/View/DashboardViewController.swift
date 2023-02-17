@@ -8,34 +8,40 @@
 import UIKit
 
 class DashboardViewController: UITabBarController {
-    private var header = HeaderViewController()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         createbottomNavBar()
-        view.addSubview(header.view)
     }
     
     private func createbottomNavBar() {
         let vc1 = UINavigationController(rootViewController: ProductListingTableViewController())
         let vc2 = UINavigationController(rootViewController: ProductListingCollectionViewController())
         
-    
-        self.setViewControllers([vc1, vc2], animated: false)
+        // Empty tabs
+        let vc3 = UINavigationController(rootViewController: EmptyViewController())
+        let vc4 = UINavigationController(rootViewController: EmptyViewController())
+        let vc5 = UINavigationController(rootViewController: EmptyViewController())
         
+        self.setViewControllers([vc1, vc2, vc3, vc4, vc5], animated: false)
+        
+        // Checking if tab bar is not empty
         guard let items = self.tabBar.items else {
             return
         }
-        
-        let tabBarImageItem = ["tablecells", "rectangle.grid.3x2"]
-        let tabBarImageSelectedItem = ["tablecells.fill", "rectangle.grid.3x2.fill"]
-        
+
+        // Updating image on tab bar button
         for i in 0..<items.count {
-            items[i].selectedImage = UIImage(systemName: tabBarImageSelectedItem[i])
-            items[i].image = UIImage(systemName: tabBarImageItem[i])
+            items[i].image = UIImage(named: Strings.tabButtonImage)
         }
         
         self.modalPresentationStyle = .fullScreen
-        self.tabBar.backgroundColor = AppUtils.hexStringToUIColor(hex: Colors.tabBgColor, alpha: 1)
+        self.tabBar.backgroundColor = UIColor(named: Strings.tabBackgroundColor)
+        self.tabBar.tintColor = UIColor(named: Strings.tabButton)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tabBar.frame.size.height = 95
+        tabBar.frame.origin.y = view.frame.height - 95
     }
 }

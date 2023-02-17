@@ -14,4 +14,12 @@ class Strings {
     static let search: String = "Search"
     
     static let errorMessage = "No store found!"
+    
+    static let headerBackgroundColor = "HeaderBackground"
+    static let filterTextColor = "FilterText"
+    static let tabBackgroundColor = "TabBackground"
+    static let tabButton = "TabButton"
+    
+    static let tabButtonImage = "tabButton.png"
+    static let placeholderImage = "storeDefault.png"
 }
