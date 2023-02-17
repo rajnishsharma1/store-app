@@ -35,7 +35,7 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
     }
     
     private func fetchData() {
-        Task {try await viewModel.getStoreDetails()}
+        Task {await viewModel.getStoreDetails()}
     }
     
     private func viewModelListener() {

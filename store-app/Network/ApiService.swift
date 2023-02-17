@@ -9,12 +9,24 @@ import Foundation
 
 class ApiService {
     
-    /// Api Service for the store API
-    func getStoreData() async throws -> StoreModel {
-        let data = try await NetworkClient.instance.makeApiCall(url: Urls.storeApi)
-        let result = try JSONDecoder().decode(StoreModel.self, from: data)
-        print(result.data.items)
-        return result
+    // MARK:  Service for the store API
+    func getStoreData() async -> StoreModel? {
+        let data = await NetworkClient.instance.makeApiCall(url: Urls.storeApi)
+        
+        // API error
+        if data == nil {
+            return nil
+        }
+        // API success
+        do {
+            // Parsing the response using JSONDecoder
+            let result = try JSONDecoder().decode(StoreModel.self, from: data!)
+            return result
+        } catch {
+            // Return nil if there is a parsing error
+            return nil
+        }
+        
     }
 }
 

@@ -8,13 +8,21 @@
 import Foundation
 
 class NetworkClient {
+    // Instance for the singleton NetworkClient
     static let instance = NetworkClient()
       
+    // making default constructor private
     private init() {}
     
-    func makeApiCall(url: String) async throws -> Data {
+    func makeApiCall(url: String) async -> Data? {
         let url = URL(string: url)!
-        let (data, _) = try await URLSession.shared.data(from: url)
-        return data
+        do {
+            // Making API call for the [url]
+            let (data, _) = try await URLSession.shared.data(from: url)
+            return data
+        } catch {
+            // Sending nil if there is a error in API call
+            return nil
+        }
     }
 }

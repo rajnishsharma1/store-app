@@ -15,7 +15,7 @@ class CoreDatahelper {
     private init () {}
     
     // MARK: Save in Core Data -
-    func saveInCoreData(storeModel: StoreModel) async -> Bool {
+    func saveInCoreData(storeData: StoreData) async -> Bool {
         let isDeleted = await deleteAll()
         if !isDeleted {
             return false
@@ -28,7 +28,7 @@ class CoreDatahelper {
         
         let managedContext = await appDelegate.persistentContainer.viewContext
         
-        storeModel.data.items.forEach { item in
+        storeData.items.forEach { item in
             
             guard let entity = NSEntityDescription.entity(forEntityName: CoreDataConstants.entityName, in: managedContext) else {
                 return
@@ -54,15 +54,15 @@ class CoreDatahelper {
     }
     
     // MARK: Fetch from Core Data -
-    func fetchFromCoreData() -> DataWrapper<StoreData>? {
-        var store: DataWrapper<StoreData> = DataWrapper()
+    func fetchFromCoreData() async -> StoreData? {
+        var store: StoreData
         
         guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
+            await UIApplication.shared.delegate as? AppDelegate else {
               return nil
           }
           
-          let managedContext = appDelegate.persistentContainer.viewContext
+          let managedContext = await appDelegate.persistentContainer.viewContext
           
           let fetchRequest = NSFetchRequest<StoreDataItem>(entityName: CoreDataConstants.entityName)
         
@@ -75,9 +75,9 @@ class CoreDatahelper {
               for storeItem in storeItems {
                   itemList.append(ItemModel(name: storeItem.name ?? "", price: storeItem.price ?? "", extra: storeItem.extra, image: storeItem.image))
               }
-              store.response = StoreData(items: itemList)
-          } catch let error as NSError {
-            print("Could not fetch. \(error), \(error.userInfo)")
+              store = StoreData(items: itemList)
+          } catch {
+              return nil
           }
         
         return store

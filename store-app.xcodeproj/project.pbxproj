@@ -38,6 +38,7 @@
 		D6B9DE14299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DE12299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodeld */; };
 		D6B9DEA3299F515500F2F4E9 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DEA2299F515500F2F4E9 /* CoreDataHelper.swift */; };
 		D6B9DEA5299F556900F2F4E9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DEA4299F556900F2F4E9 /* Constants.swift */; };
+		D6B9DEA8299F797600F2F4E9 /* StoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DEA7299F797600F2F4E9 /* StoreRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		D6B9DE13299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StoreCodeDataModel.xcdatamodel; sourceTree = "<group>"; };
 		D6B9DEA2299F515500F2F4E9 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		D6B9DEA4299F556900F2F4E9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D6B9DEA7299F797600F2F4E9 /* StoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +220,7 @@
 		D666471C299D107C004B1A76 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D6B9DEA6299F795800F2F4E9 /* Repository */,
 				D6B9DE07299E96DB00F2F4E9 /* Constants */,
 				D6664729299D17D9004B1A76 /* View */,
 				D6664713299BB2AC004B1A76 /* ViewModel */,
@@ -311,6 +314,14 @@
 				D6B9DEA4299F556900F2F4E9 /* Constants.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		D6B9DEA6299F795800F2F4E9 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				D6B9DEA7299F797600F2F4E9 /* StoreRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -458,6 +469,7 @@
 				D6B9DE06299E495900F2F4E9 /* HeaderViewController.swift in Sources */,
 				D6664715299BB2CE004B1A76 /* StoreViewModel.swift in Sources */,
 				D666470E299BA473004B1A76 /* NetowrkClient.swift in Sources */,
+				D6B9DEA8299F797600F2F4E9 /* StoreRepository.swift in Sources */,
 				D6664734299DF622004B1A76 /* ProductListingCollectionItem.swift in Sources */,
 				D6B9DE09299E96EA00F2F4E9 /* Strings.swift in Sources */,
 				D6664712299BB125004B1A76 /* DataWrapper.swift in Sources */,

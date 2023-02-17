@@ -12,8 +12,6 @@ class DashboardViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        CoreDatahelper.instance.fetchFromCoreData()
         createbottomNavBar()
         view.addSubview(header.view)
     }
@@ -38,6 +36,6 @@ class DashboardViewController: UITabBarController {
         }
         
         self.modalPresentationStyle = .fullScreen
-        self.tabBar.backgroundColor = .white
+        self.tabBar.backgroundColor = AppUtils.hexStringToUIColor(hex: Colors.tabBgColor)
     }
 }

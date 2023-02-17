@@ -12,4 +12,6 @@ class Strings {
     static let explore: String = "Explore"
     static let mrp: String = "MRP:"
     static let search: String = "Search"
+    
+    static let errorMessage = "No store found!"
 }
