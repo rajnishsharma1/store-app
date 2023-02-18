@@ -14,7 +14,7 @@ class CoreDatahelper {
     
     private init () {}
     
-    // MARK: Save in Core Data -
+    // MARK: - Save in Core Data
     func saveInCoreData(storeData: StoreData) async -> Bool {
         let isDeleted = await deleteAll()
         if !isDeleted {
@@ -53,7 +53,7 @@ class CoreDatahelper {
         }
     }
     
-    // MARK: Fetch from Core Data -
+    // MARK: - Fetch from Core Data
     func fetchFromCoreData() async -> StoreData? {
         var store: StoreData
         
@@ -87,7 +87,7 @@ class CoreDatahelper {
         return store
     }
     
-    // MARK: Delete all from Core Data -
+    // MARK: - Delete all from Core Data
     func deleteAll() async -> Bool {
         var isDeleted: Bool = false
         guard let appDelegate = await UIApplication.shared.delegate as? AppDelegate else {

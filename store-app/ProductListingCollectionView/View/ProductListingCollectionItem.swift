@@ -20,7 +20,7 @@ class ProductListingCollectionItem: UICollectionViewCell {
         super.init(frame: frame)
     }
     
-    // MARK: LayoutSubviews
+    // MARK: - LayoutSubviews
     override func layoutSubviews() {
         // Visual properties of itemImage
         itemImage.layer.cornerRadius = 8

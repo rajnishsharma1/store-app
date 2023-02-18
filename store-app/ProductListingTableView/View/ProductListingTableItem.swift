@@ -22,7 +22,7 @@ class ProductListingTableItem : UITableViewCell {
         layoutSubviews()
     }
     
-    // MARK: LayoutSubviews
+    // MARK: - LayoutSubviews
     override func layoutSubviews() {
         // Visual properties of itemImage
         itemImage.layer.cornerRadius = 8

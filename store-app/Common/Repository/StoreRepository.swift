@@ -10,7 +10,7 @@ import Foundation
 class StoreRepository {
     private let apiService: ApiService = ApiService()
     
-    // MARK: Store Detail Data
+    // MARK: - Store Detail Data
     func getStoreDetails() async -> DataWrapper<StoreData> {
         var store: DataWrapper<StoreData> = DataWrapper()
         

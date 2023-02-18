@@ -9,7 +9,7 @@ import Foundation
 
 class ApiService {
     
-    // MARK:  Service for the store API
+    // MARK: - Service for the store API
     func getStoreData() async -> StoreModel? {
         let data = await NetworkClient.instance.makeApiCall(url: Urls.storeApi)
         

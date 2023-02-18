@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Combine
 
-class ProductListingTableViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
+class ProductListingTableViewController: UIViewController , UITableViewDataSource, UITableViewDelegate , UISearchBarDelegate{
     // To store list of items that we receive from the api
     private var storeItems: [ItemModel] = []
     
@@ -32,7 +32,7 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         view.backgroundColor = .white
         
         view.addSubview(headerView.view)
-        
+        headerView.clearSearch()
         fetchData()
         setupTableView()
         viewModelListener()
