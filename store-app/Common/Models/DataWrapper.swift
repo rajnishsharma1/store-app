@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Custom data wrapper to wrap the response from repository
 struct DataWrapper<T> {
     var response: T?
     var isLoading: Bool = false
