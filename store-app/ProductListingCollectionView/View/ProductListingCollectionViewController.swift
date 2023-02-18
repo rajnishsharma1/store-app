@@ -33,7 +33,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         view.backgroundColor = .white
         
         view.addSubview(headerView.view)
-        
+        headerView.clearSearch()
         fetchData()
         setupCollectionView()
         viewModelListener()
