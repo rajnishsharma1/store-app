@@ -19,7 +19,7 @@ class CoreDatahelper {
         self.backgroundcontext = backgroundContext
     }
     
-    // MARK: - Save in Core Data
+    // MARK: - Create/Write in CoreData
     func saveInCoreData(storeData: StoreData) async -> Bool {
         let isDeleted = deleteAll()
         if !isDeleted {
@@ -28,7 +28,7 @@ class CoreDatahelper {
         
         storeData.items.forEach { item in
             
-            let entity = NSEntityDescription.insertNewObject(forEntityName: CoreDataConstants.entityName, into: mainContext)
+            let entity = NSEntityDescription.insertNewObject(forEntityName: CoreDataConstants.entityName, into: backgroundcontext)
             
             entity.setValue(item.name, forKey: CoreDataConstants.name)
             entity.setValue(item.price, forKey: CoreDataConstants.price)
@@ -37,24 +37,24 @@ class CoreDatahelper {
         }
         
         do {
-            try mainContext.save()
+            try backgroundcontext.save()
             // Successfully saved in CoreData
             return true
         } catch _ as NSError {
             // Delete NSManagedObject (reseting the menory)
-            mainContext.reset()
+            backgroundcontext.reset()
             return false
         }
     }
     
-    // MARK: - Fetch from Core Data
+    // MARK: - Fetch/Read from CoreData
     func fetchFromCoreData() -> StoreData? {
         var store: StoreData
         
         let fetchRequest = NSFetchRequest<StoreDataItem>(entityName: CoreDataConstants.entityName)
         
         do {
-            var storeItems = try backgroundcontext.fetch(fetchRequest)
+            var storeItems = try mainContext.fetch(fetchRequest)
             
             // Sorting stored items with name
             storeItems = storeItems.sorted { a, b in
@@ -76,7 +76,7 @@ class CoreDatahelper {
         return store
     }
     
-    // MARK: - Delete all from Core Data
+    // MARK: - Delete all from CoreData
     func deleteAll() -> Bool {
         var isDeleted: Bool = false
         
@@ -85,7 +85,7 @@ class CoreDatahelper {
 
         do {
             // Delete successful
-            try backgroundcontext.execute(deleteRequest)
+            try mainContext.execute(deleteRequest)
             isDeleted = true
         } catch _ as NSError {
             // Delete error

@@ -8,7 +8,6 @@
 import Foundation
 import CoreData
 
-/// Scope - Within application
 class CoreDataStack {
     
     static let shared = CoreDataStack()

@@ -16,7 +16,6 @@
 		D649635029A0BDD1005DEAAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664689299A5DD0004B1A76 /* AppDelegate.swift */; };
 		D649635529A14890005DEAAF /* StoreCodeDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DE12299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodeld */; };
 		D649635E29A20D31005DEAAF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649635D29A20D31005DEAAF /* CoreDataStack.swift */; };
-		D649635F29A20D31005DEAAF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649635D29A20D31005DEAAF /* CoreDataStack.swift */; };
 		D649636229A21999005DEAAF /* StoreDataItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649636029A21999005DEAAF /* StoreDataItem+CoreDataClass.swift */; };
 		D649636329A21999005DEAAF /* StoreDataItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649636029A21999005DEAAF /* StoreDataItem+CoreDataClass.swift */; };
 		D649636429A21999005DEAAF /* StoreDataItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649636129A21999005DEAAF /* StoreDataItem+CoreDataProperties.swift */; };
@@ -513,7 +512,6 @@
 				D649635529A14890005DEAAF /* StoreCodeDataModel.xcdatamodeld in Sources */,
 				D649634D29A0BD02005DEAAF /* StoreData.swift in Sources */,
 				D649634A29A0B8E8005DEAAF /* store_coreDataTests.swift in Sources */,
-				D649635F29A20D31005DEAAF /* CoreDataStack.swift in Sources */,
 				D649636529A21999005DEAAF /* StoreDataItem+CoreDataProperties.swift in Sources */,
 				D649636329A21999005DEAAF /* StoreDataItem+CoreDataClass.swift in Sources */,
 				D649635029A0BDD1005DEAAF /* AppDelegate.swift in Sources */,
