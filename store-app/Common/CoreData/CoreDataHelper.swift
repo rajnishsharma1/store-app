@@ -11,12 +11,9 @@ import CoreData
 
 class CoreDatahelper {
     let mainContext: NSManagedObjectContext
-    let backgroundcontext: NSManagedObjectContext
 
-    init(mainContext: NSManagedObjectContext = CoreDataStack.shared.mainContext,
-         backgroundContext: NSManagedObjectContext = CoreDataStack.shared.backgroundContext) {
+    init(mainContext: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.mainContext = mainContext
-        self.backgroundcontext = backgroundContext
     }
     
     // MARK: - Create/Write in CoreData
@@ -27,8 +24,7 @@ class CoreDatahelper {
         }
         
         storeData.items.forEach { item in
-            
-            let entity = NSEntityDescription.insertNewObject(forEntityName: CoreDataConstants.entityName, into: backgroundcontext)
+            let entity = NSEntityDescription.insertNewObject(forEntityName: CoreDataConstants.entityName, into: mainContext)
             
             entity.setValue(item.name, forKey: CoreDataConstants.name)
             entity.setValue(item.price, forKey: CoreDataConstants.price)
@@ -37,12 +33,12 @@ class CoreDatahelper {
         }
         
         do {
-            try backgroundcontext.save()
+            try mainContext.save()
             // Successfully saved in CoreData
             return true
         } catch _ as NSError {
             // Delete NSManagedObject (reseting the menory)
-            backgroundcontext.reset()
+            mainContext.reset()
             return false
         }
     }
