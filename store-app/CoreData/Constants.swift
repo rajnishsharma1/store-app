@@ -8,6 +8,7 @@
 import Foundation
 
 class CoreDataConstants {
+    static let storeContainer: String = "StoreCodeDataModel"
     static let entityName: String = "StoreDataItem"
     static let name: String = "name"
     static let price: String = "price"
