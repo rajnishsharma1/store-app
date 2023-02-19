@@ -18,8 +18,7 @@ class StoreRepository {
         let storeResponse = await apiService.getStoreData()
         
         if storeResponse == nil { // If API error
-            let storeLocalData = await CoreDatahelper.instance.fetchFromCoreData()
-            
+            let storeLocalData = CoreDatahelper().fetchFromCoreData()
             if storeLocalData == nil {
                 store.error = Strings.errorMessage
             } else {
@@ -28,7 +27,7 @@ class StoreRepository {
         } else { // If API success
             store.response = storeResponse!.data
             // Storing API response to CoreData
-            let _ = await CoreDatahelper.instance.saveInCoreData(storeData: storeResponse!.data)
+            let _ = await CoreDatahelper().saveInCoreData(storeData: storeResponse!.data)
         }
         return store
     }
