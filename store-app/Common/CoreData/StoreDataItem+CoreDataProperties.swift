@@ -2,12 +2,13 @@
 //  StoreDataItem+CoreDataProperties.swift
 //  store-app
 //
-//  Created by Rajnish Sharma on 17/02/23.
+//  Created by Rajnish Sharma on 19/02/23.
 //
 //
 
 import Foundation
 import CoreData
+
 
 extension StoreDataItem {
 
@@ -15,10 +16,10 @@ extension StoreDataItem {
         return NSFetchRequest<StoreDataItem>(entityName: "StoreDataItem")
     }
 
-    @NSManaged public var itemName: NSObject?
-    @NSManaged public var itemPrice: NSObject?
-    @NSManaged public var image: NSObject?
-    @NSManaged public var extra: NSObject?
+    @NSManaged public var extra: String?
+    @NSManaged public var image: String?
+    @NSManaged public var name: String?
+    @NSManaged public var price: String?
 
 }
 

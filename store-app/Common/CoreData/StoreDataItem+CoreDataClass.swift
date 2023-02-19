@@ -2,7 +2,7 @@
 //  StoreDataItem+CoreDataClass.swift
 //  store-app
 //
-//  Created by Rajnish Sharma on 17/02/23.
+//  Created by Rajnish Sharma on 19/02/23.
 //
 //
 
