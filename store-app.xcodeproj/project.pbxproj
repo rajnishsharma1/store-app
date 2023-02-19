@@ -169,13 +169,11 @@
 			isa = PBXGroup;
 			children = (
 				D63B5F93299F8FD400FB7543 /* AppUtils */,
-				D6B9DE61299F4A0F00F2F4E9 /* CoreData */,
 				D6664728299D17C4004B1A76 /* Delegates */,
 				D666471F299D10FF004B1A76 /* ProductListingCollectionView */,
 				D666471E299D10E9004B1A76 /* ProductListingTableView */,
 				D666471C299D107C004B1A76 /* Common */,
 				D6664716299CDBE2004B1A76 /* Dashboard */,
-				D6664700299B88D5004B1A76 /* Network */,
 				D6664692299A5DD1004B1A76 /* Assets.xcassets */,
 				D6664694299A5DD1004B1A76 /* LaunchScreen.storyboard */,
 				D6664697299A5DD1004B1A76 /* Info.plist */,
@@ -243,6 +241,8 @@
 		D666471C299D107C004B1A76 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				D6B9DE61299F4A0F00F2F4E9 /* CoreData */,
+				D6664700299B88D5004B1A76 /* Network */,
 				D6B9DEA6299F795800F2F4E9 /* Repository */,
 				D6B9DE07299E96DB00F2F4E9 /* Constants */,
 				D6664729299D17D9004B1A76 /* View */,
