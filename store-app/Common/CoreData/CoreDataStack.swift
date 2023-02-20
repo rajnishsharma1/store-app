@@ -10,13 +10,11 @@ import CoreData
 
 class CoreDataStack {
     
-    static let shared = CoreDataStack()
-    
-    let persistentContainer: NSPersistentContainer
+    var persistentContainer: NSPersistentContainer
     let backgroundContext: NSManagedObjectContext
     let mainContext: NSManagedObjectContext
     
-    private init() {
+    init() {
         persistentContainer = NSPersistentContainer(name: CoreDataConstants.storeContainer)
         
         persistentContainer.loadPersistentStores { description, error in

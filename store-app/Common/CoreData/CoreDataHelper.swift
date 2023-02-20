@@ -12,7 +12,7 @@ import CoreData
 class CoreDatahelper {
     let mainContext: NSManagedObjectContext
 
-    init(mainContext: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    init(mainContext: NSManagedObjectContext = CoreDataStack().mainContext) {
         self.mainContext = mainContext
     }
     
@@ -50,16 +50,21 @@ class CoreDatahelper {
         let fetchRequest = NSFetchRequest<StoreDataItem>(entityName: CoreDataConstants.entityName)
         
         do {
-            var storeItems = try mainContext.fetch(fetchRequest)
+            var storeItems = try mainContext.fetch(fetchRequest) as NSArray
             
             // Sorting stored items with name
             storeItems = storeItems.sorted { a, b in
-                a.name ?? "" < b.name ?? ""
-            }
+                (a as! StoreDataItem).name ?? "" < (b as! StoreDataItem).name ?? ""
+            } as NSArray
             var itemList: [ItemModel] = []
+            
             for storeItem in storeItems {
-                itemList.append(ItemModel(name: storeItem.name ?? "", price: storeItem.price ?? "", extra: storeItem.extra, image: storeItem.image))
+                itemList.append(ItemModel(name: (storeItem  as? StoreDataItem)?.name ?? "",
+                price: (storeItem as? StoreDataItem)?.price ?? "",
+                extra: (storeItem  as? StoreDataItem)?.extra ?? "",
+                image: (storeItem  as? StoreDataItem)?.image ?? ""))
             }
+            
             if itemList.count == 0 {
                 return nil
             } else {
@@ -80,8 +85,12 @@ class CoreDatahelper {
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
         do {
+            if  CoreDataStack().persistentContainer.persistentStoreDescriptions.first?.type == NSInMemoryStoreType {
+                mainContext.reset()
+            } else {
+                try mainContext.execute(deleteRequest)
+            }
             // Delete successful
-            try mainContext.execute(deleteRequest)
             isDeleted = true
         } catch _ as NSError {
             // Delete error
