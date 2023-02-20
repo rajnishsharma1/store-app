@@ -21,6 +21,7 @@ class Strings {
     static let filterTextColor = "FilterText"
     static let tabBackgroundColor = "TabBackground"
     static let tabButton = "TabButton"
+    static let divider = "Divider"
     
     // Images
     static let tabButtonImage = "tabButton.png"
