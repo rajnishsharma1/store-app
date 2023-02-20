@@ -10,17 +10,18 @@ import UIKit
 
 extension UIImageView {
     func setCustomImage(_ imgURLString: String?) {
+        let placeHolderImage: UIImage = UIImage(named: Strings.placeholderImage)!
         guard let imageURLString = imgURLString else {
-            self.image = UIImage(named: Strings.placeholderImage)
+            self.image = placeHolderImage
             return
         }
         if (imageURLString.isEmpty) {
-            self.image = UIImage(named: Strings.placeholderImage)
+            self.image = placeHolderImage
         } else {
             DispatchQueue.global().async { [weak self] in
                 let data = try? Data(contentsOf: URL(string: imageURLString)!)
                 DispatchQueue.main.async {
-                    self?.image = data != nil ? UIImage(data: data!) : UIImage(named: Strings.placeholderImage)
+                    self?.image = data != nil ? UIImage(data: data!) : placeHolderImage
                 }
             }
         }

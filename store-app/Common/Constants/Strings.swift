@@ -25,5 +25,5 @@ class Strings {
     
     // Images
     static let tabButtonImage = "tabButton.png"
-    static let placeholderImage = "storeDefault.png"
+    static let placeholderImage = "storePlaceholder.png"
 }
