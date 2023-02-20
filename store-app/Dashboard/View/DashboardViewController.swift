@@ -47,6 +47,44 @@ class DashboardViewController: UITabBarController {
         // Tabbar button tint color
         // Setting green color for active tab button
         self.tabBar.tintColor = UIColor(named: Strings.tabButton)
+        
+       initSwipe()
+    }
+    
+    // MARK: - Initiliziing Swipe functionality
+    /// This function will initilize the swipe variable and set its properties
+    ///
+    /// - Its directions
+    /// - Number of tuches required for swipe functionality to work
+    private func initSwipe() {
+        var swipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeGesture))
+        swipe.numberOfTouchesRequired = 1
+        swipe.direction = .left
+        self.view.addGestureRecognizer(swipe)
+        
+        swipe = UISwipeGestureRecognizer(target: self, action: #selector(swipeGesture))
+        swipe.numberOfTouchesRequired = 1
+        swipe.direction = .right
+        self.view.addGestureRecognizer(swipe)
+    }
+    
+    // MARK: - Swipe gesture controller
+    // Swipe gestures logic
+    @objc private func swipeGesture(swipe: UISwipeGestureRecognizer) {
+        switch swipe.direction {
+        case .right:
+            if (selectedIndex > 0) {
+                self.selectedIndex = self.selectedIndex - 1
+            }
+            break
+        case .left:
+            if (selectedIndex < 5) {
+                self.selectedIndex = self.selectedIndex + 1
+            }
+            break
+        default:
+            break
+        }
     }
     
     // MARK: - Subview Lifecycle
