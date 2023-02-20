@@ -13,10 +13,6 @@ class HeaderViewController : UIViewController, UISearchBarDelegate {
     private var exploreLabel: UILabel = UILabel()
     private var filterLabel: UILabel = UILabel()
     
-    func clearSearch() {
-        searchBar.text = ""
-    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange textSearched: String) {
         print(searchBar.text!)
     }

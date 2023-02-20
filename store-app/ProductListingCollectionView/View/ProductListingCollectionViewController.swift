@@ -23,8 +23,6 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     private var loader: LoaderView = LoaderView()
     private var error: ErrorView = ErrorView()
     
-    private let headerView: HeaderViewController = HeaderViewController()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,8 +30,6 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         error = ErrorView(frame: view.frame)
         view.backgroundColor = .white
         
-        view.addSubview(headerView.view)
-        headerView.clearSearch()
         fetchData()
         setupCollectionView()
         viewModelListener()

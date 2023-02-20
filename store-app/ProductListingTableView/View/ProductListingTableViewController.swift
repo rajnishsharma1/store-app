@@ -22,8 +22,6 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
     private var loader: LoaderView = LoaderView()
     private var error: ErrorView = ErrorView()
     
-    private let headerView: HeaderViewController = HeaderViewController()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -31,8 +29,6 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         error = ErrorView(frame: view.frame)
         view.backgroundColor = .white
         
-        view.addSubview(headerView.view)
-        headerView.clearSearch()
         fetchData()
         setupTableView()
         viewModelListener()
