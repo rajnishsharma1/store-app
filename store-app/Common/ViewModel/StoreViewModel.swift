@@ -8,9 +8,11 @@
 import Foundation
 
 class StoreViewModel {
+    /// Published Variable
     @Published var store: DataWrapper<StoreData> = DataWrapper()
     private let storeRepository: StoreRepository = StoreRepository()
     
+    /// Setting DataWrapper
     func getStoreDetails() async {
         store.isLoading = true
         

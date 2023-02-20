@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class LoaderView: UIView {
+    /// UI Element
     private var loader: UIActivityIndicatorView!
 
     override init(frame: CGRect) {
@@ -22,11 +23,13 @@ class LoaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Show Loader on UIViewController
     func showLoader(view: UIView) {
         loader.startAnimating()
         view.addSubview(loader)
     }
     
+    /// Show Loader from UIViewController
     func hideLoader(view: UIView) {
         loader.stopAnimating()
         loader.removeFromSuperview()

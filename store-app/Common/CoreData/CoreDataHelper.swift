@@ -17,6 +17,7 @@ class CoreDatahelper {
     }
     
     // MARK: - Create/Write in CoreData
+    /// Saving items in CoreData
     func saveInCoreData(storeData: StoreData) async -> Bool {
         let isDeleted = deleteAll()
         if !isDeleted {
@@ -44,6 +45,7 @@ class CoreDatahelper {
     }
     
     // MARK: - Fetch/Read from CoreData
+    /// Fetching items from CoreData
     func fetchFromCoreData() -> StoreData? {
         var store: StoreData
         
@@ -78,6 +80,7 @@ class CoreDatahelper {
     }
     
     // MARK: - Delete all from CoreData
+    /// Deleting everything in CoreData
     func deleteAll() -> Bool {
         var isDeleted: Bool = false
         

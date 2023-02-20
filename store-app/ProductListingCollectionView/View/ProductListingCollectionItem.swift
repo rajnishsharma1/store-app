@@ -10,14 +10,20 @@ import UIKit
 import MetricKit
 
 class ProductListingCollectionItem: UICollectionViewCell {
+    /// Cell identifer
     static let identifer = "ProductListingCollectionItem"
     
+    // MARK: - UI Elemets
     let itemImage: UIImageView = UIImageView()
     let itemName: UILabel = UILabel()
     let itemPrice: UILabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     // MARK: - LayoutSubviews
@@ -52,9 +58,5 @@ class ProductListingCollectionItem: UICollectionViewCell {
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[storeImage(80)]-[itemName]", options: [], metrics: nil, views: viewsDict))
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[itemName]-5-[itemPrice]", options: [], metrics: nil, views: viewsDict))
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[storeImage(80)]", options: [], metrics: nil, views: viewsDict))
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

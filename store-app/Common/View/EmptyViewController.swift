@@ -11,6 +11,9 @@ import UIKit
 class EmptyViewController: UIViewController {
     private let emptyLabel: UILabel = UILabel()
     
+    // MARK: - Lifecycle
+    /// Lifecycle
+    /// Initial Loading
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

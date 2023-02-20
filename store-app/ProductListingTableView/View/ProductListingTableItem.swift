@@ -9,8 +9,10 @@ import Foundation
 import UIKit
 
 class ProductListingTableItem : UITableViewCell {
+    /// Cell identifer
     static let identifer = "ProductListingTableItem"
     
+    // MARK: - UI Elemets
     let itemImage: UIImageView = UIImageView()
     let itemName: UILabel = UILabel()
     let itemPrice: UILabel = UILabel()
@@ -21,6 +23,10 @@ class ProductListingTableItem : UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
            super.init(style: style, reuseIdentifier: reuseIdentifier)
         layoutSubviews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     
     // MARK: - LayoutSubviews
@@ -87,10 +93,5 @@ class ProductListingTableItem : UITableViewCell {
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[storeImage(50)]-[mrpPlaceHolder]-[itemPrice]-[extra]-|", options: [], metrics: nil, views: viewsDict))
         
         contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[storeImage(50)]-[divider]-16-|", options: [], metrics: nil, views: viewsDict))
-    }
-    
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

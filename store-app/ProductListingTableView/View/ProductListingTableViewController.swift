@@ -10,6 +10,9 @@ import UIKit
 import Combine
 
 class ProductListingTableViewController: UIViewController , UITableViewDataSource, UITableViewDelegate , UISearchBarDelegate{
+    
+    //MARK: - Properties
+    /// Data Objects
     // To store list of items that we receive from the api
     private var storeItems: [ItemModel] = []
     
@@ -18,10 +21,14 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
     
     private var viewModel: StoreViewModel = StoreViewModel()
     
+    /// UI Elements
     private var myTableView: UITableView!
     private var loader: LoaderView = LoaderView()
     private var error: ErrorView = ErrorView()
     
+    // MARK: - Lifecycle
+    /// Lifecycle
+    /// Initial Loading
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,15 +36,24 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         error = ErrorView(frame: view.frame)
         view.backgroundColor = .white
         
+        /// Fetching data from Api
         fetchData()
+        
+        /// Setting up layouts
         setupTableView()
+        
+        /// Observing publisher in ViewModel
         viewModelListener()
     }
     
+    // MARK: - Fetch Data from ViewModel
+    /// Fetch data from ViewModel
     private func fetchData() {
         Task {await viewModel.getStoreDetails()}
     }
     
+    // MARK: ViewModel listener
+    /// Listening the changes in the viewmodel's publisher
     private func viewModelListener() {
         cancellable = viewModel.$store.sink {
             if ($0.isLoading == true) {
@@ -61,6 +77,8 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         }
     }
     
+    // MARK: - TableView Setup
+    /// Setting TableView properties
     private func setupTableView() {
         myTableView = UITableView(frame: view.frame)
         
@@ -71,10 +89,14 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         myTableView.delegate = self
     }
     
+    // MARK: - UITableView Item count
+    /// UITableView - Item count that is coming from API
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return storeItems.count
     }
     
+    // MARK: - UITableView Data
+    /// UITableView - Setting data to custom cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ProductListingTableItem.identifer, for: indexPath) as! ProductListingTableItem
         cell.itemName.text = storeItems[indexPath.row].name

@@ -11,18 +11,23 @@ import Combine
 
 class ProductListingCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    // To store list of items that we receive from the api
-    private var storeItems: [ItemModel] = []
-    
+    //MARK: - Properties
     // Defines a cancellable object to retrive the state of the network calls
     private var cancellable: AnyCancellable?
     
+    /// Data Objects
+    // To store list of items that we receive from the api
+    private var storeItems: [ItemModel] = []
     private var viewModel: StoreViewModel = StoreViewModel()
-    var myCollectionView: UICollectionView!
     
+    /// UI Elements
     private var loader: LoaderView = LoaderView()
     private var error: ErrorView = ErrorView()
+    var myCollectionView: UICollectionView!
     
+    // MARK: - Lifecycle
+    /// Lifecycle
+    /// Initial Loading
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,11 +35,17 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         error = ErrorView(frame: view.frame)
         view.backgroundColor = .white
         
+        /// Fetching data from Api
         fetchData()
+        
+        /// Setting up layouts
         setupCollectionView()
+        
+        /// Observing publisher in ViewModel
         viewModelListener()
     }
     
+    // MARK: - CollectionView customizations
     private func setupCollectionView() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 10, right: 10)
@@ -51,10 +62,14 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         
     }
     
+    // MARK: - Fetch Data from ViewModel
+    /// Fetch data from ViewModel
     private func fetchData() {
         Task {await viewModel.getStoreDetails()}
     }
     
+    // MARK: ViewModel listener
+    /// Listening the changes in the viewmodel's publisher
     private func viewModelListener() {
         cancellable = viewModel.$store.sink {
             if ($0.isLoading == true) {
@@ -78,10 +93,14 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         }
     }
     
+    // MARK: - UICollectionView Item count
+    /// UICollectionView - Item count that is coming from API
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return storeItems.count
     }
     
+    // MARK: - UICollectionView Data
+    /// UICollectionView - Setting data to custom cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListingCollectionItem.identifer, for: indexPath) as! ProductListingCollectionItem
         myCell.itemName.text = storeItems[indexPath.row].name

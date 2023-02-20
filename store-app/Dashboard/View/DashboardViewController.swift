@@ -8,12 +8,17 @@
 import UIKit
 
 class DashboardViewController: UITabBarController {
+    
+    // MARK: - Lifecycle
+    /// Lifecycle of DashBoardViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(HeaderViewController().view)
         createbottomNavBar()
     }
     
+    // MARK: - Bottom Navigation bar
+    /// Creation of bottom navigation bar and adding custom properties
     private func createbottomNavBar() {
         let vc1 = UINavigationController(rootViewController: ProductListingTableViewController())
         let vc2 = UINavigationController(rootViewController: ProductListingCollectionViewController())
@@ -35,11 +40,17 @@ class DashboardViewController: UITabBarController {
             items[i].image = UIImage(named: Strings.tabButtonImage)
         }
         
+        // Tabbar custom properties
         self.modalPresentationStyle = .fullScreen
         self.tabBar.backgroundColor = UIColor(named: Strings.tabBackgroundColor)
+        
+        // Tabbar button tint color
+        // Setting green color for active tab button
         self.tabBar.tintColor = UIColor(named: Strings.tabButton)
     }
     
+    // MARK: - Subview Lifecycle
+    /// Updating bottom Navigation height
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tabBar.frame.size.height = 95

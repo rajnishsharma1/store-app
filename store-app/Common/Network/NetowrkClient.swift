@@ -8,12 +8,13 @@
 import Foundation
 
 class NetworkClient {
-    // Instance for the singleton NetworkClient
+    /// Instance for the singleton NetworkClient
     static let instance = NetworkClient()
       
-    // making default constructor private
+    /// Private constructor
     private init() {}
     
+    /// API Call function
     func makeApiCall(url: String) async -> Data? {
         let url = URL(string: url)!
         do {

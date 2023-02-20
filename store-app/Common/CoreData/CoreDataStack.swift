@@ -8,8 +8,11 @@
 import Foundation
 import CoreData
 
+/// CoreDataStack
 class CoreDataStack {
+    /// Persistent Container
     var persistentContainer: NSPersistentContainer
+    /// MainContext to work on the main thread
     let mainContext: NSManagedObjectContext
     
     init() {

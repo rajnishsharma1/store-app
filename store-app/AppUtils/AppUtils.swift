@@ -8,7 +8,10 @@
 import Foundation
 import UIKit
 
+// MARK: - Extensions for UIImageView
 extension UIImageView {
+    
+    // MARK: Setting image to UIImageView
     func setCustomImage(_ imgURLString: String?) {
         let placeHolderImage: UIImage = UIImage(named: Strings.placeholderImage)!
         guard let imageURLString = imgURLString else {

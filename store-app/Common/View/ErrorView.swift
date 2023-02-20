@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class ErrorView: UIView {
+    /// UI Element
     private var errorLabel: UILabel!
 
     override init(frame: CGRect) {
@@ -24,11 +25,13 @@ class ErrorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Show Error on UIViewController
     func showError(view: UIView, errorText: String) {
         errorLabel.text = errorText
         view.addSubview(errorLabel)
     }
     
+    /// Hide Error from UIViewController
     func hideError(view: UIView) {
         errorLabel.removeFromSuperview()
     }

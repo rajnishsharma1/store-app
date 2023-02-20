@@ -11,6 +11,13 @@ class StoreRepository {
     private let apiService: ApiService = ApiService()
     
     // MARK: - Store Detail Data
+    /// Retuning Data to ViewModel
+    ///
+    /// It can either be data from API
+    ///  or It can be from CoreData
+    ///
+    ///  When API is success - Save the response in local data and show in UI
+    ///  When API fails - Show data from CoreData
     func getStoreDetails() async -> DataWrapper<StoreData> {
         var store: DataWrapper<StoreData> = DataWrapper()
         
