@@ -64,19 +64,14 @@ final class store_appUITests: XCTestCase {
         let app = XCUIApplication()
         // Launch the app
         app.launch()
-
-        // When (Performed some operation)
-        let missionControlButton = app.tabBars["Tab Bar"].buttons["mission control"]
-        let table = app.tabBars["Tab Bar"].buttons["table"]
-        missionControlButton.tap()
-        table.tap()
+        let tabBar = XCUIApplication().tabBars["Tab Bar"]
 
         
         // What (Expected valye)
-        let expectedNumberOfTabButtons = 2
+        let expectedNumberOfTabButtons = 5
         
         // Then (Matching the performed operation final value with expected value)
-        XCTAssertEqual(app.tabBars.buttons.count, expectedNumberOfTabButtons)
+        XCTAssertEqual(tabBar.buttons.count, expectedNumberOfTabButtons)
     }
 
     override func tearDownWithError() throws {
