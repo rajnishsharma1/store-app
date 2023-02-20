@@ -9,9 +9,7 @@ import Foundation
 import CoreData
 
 class CoreDataStack {
-    
     var persistentContainer: NSPersistentContainer
-    let backgroundContext: NSManagedObjectContext
     let mainContext: NSManagedObjectContext
     
     init() {
@@ -24,9 +22,5 @@ class CoreDataStack {
         }
         
         mainContext = persistentContainer.viewContext
-        
-        backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        backgroundContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        backgroundContext.parent = self.mainContext
     }
 }
