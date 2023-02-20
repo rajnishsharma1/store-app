@@ -25,7 +25,9 @@ class store_coreDataTests: XCTestCase {
         XCTAssertTrue(isSaved)
     }
     
-    func test_fetch_data() {
+    func test_fetch_data() async {
+        await coreDataHelper.saveInCoreData(storeData: StoreData(items: [ItemModel(name: "Item 9", price: "₹ 190", extra: "Same day shipping", image: "https://imgstatic.phonepe.com/images/dark/app-icons-ia-1/transfers/80/80/ic_check_balance.png")]))
+        
         let result = coreDataHelper.fetchFromCoreData()
         
         XCTAssertEqual(result?.items.count, 1)
