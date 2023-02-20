@@ -30,4 +30,14 @@ class store_coreDataTests: XCTestCase {
         
         XCTAssertEqual(result?.items.count, 1)
     }
+    
+    func test_delete_all_data() {
+        let isDeleted: Bool = coreDataHelper.deleteAll()
+        
+        let fetchedData = coreDataHelper.fetchFromCoreData()
+        
+        XCTAssertNil(fetchedData)
+        
+        XCTAssertTrue(isDeleted)
+    }
 }
