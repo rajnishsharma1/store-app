@@ -23,7 +23,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     /// UI Elements
     private var loader: LoaderView = LoaderView()
     private var error: ErrorView = ErrorView()
-    var myCollectionView: UICollectionView!
+    private var myCollectionView: UICollectionView!
     
     // MARK: - Lifecycle
     /// Lifecycle
@@ -49,7 +49,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     private func setupCollectionView() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: 90, height: 166)
+        layout.itemSize = CGSize(width: 90, height: 140)
         layout.scrollDirection = .vertical
         myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         
