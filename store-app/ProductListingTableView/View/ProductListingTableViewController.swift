@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Combine
 
-class ProductListingTableViewController: UIViewController , UITableViewDataSource, UITableViewDelegate , UISearchBarDelegate{
+class ProductListingTableViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
     
     //MARK: - Properties
     /// Data Objects
@@ -25,6 +25,7 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
     private var myTableView: UITableView!
     private var loader: LoaderView = LoaderView()
     private var error: ErrorView = ErrorView()
+    private let refreshControl: UIRefreshControl = UIRefreshControl()
     
     // MARK: - Lifecycle
     /// Lifecycle
@@ -44,49 +45,13 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         
         /// Observing publisher in ViewModel
         viewModelListener()
-    }
-    
-    // MARK: - Fetch Data from ViewModel
-    /// Fetch data from ViewModel
-    private func fetchData() {
-        Task {await viewModel.getStoreDetails()}
-    }
-    
-    // MARK: ViewModel listener
-    /// Listening the changes in the viewmodel's publisher
-    private func viewModelListener() {
-        cancellable = viewModel.$store.sink {
-            if ($0.isLoading == true) {
-                Task {self.loader.showLoader(view: self.view)}
-            } else if ($0.response != nil) {
-                guard let response = $0.response else {return}
-                Task {
-                    self.storeItems = response.items
-                    let uiScroll = UIScrollView(frame: self.view.frame)
-                    uiScroll.addSubview(self.myTableView)
-                    self.myTableView.frame = CGRect(x: 0, y: 164, width: self.view.frame.size.width, height: self.view.frame.size.height - 164)
-                    self.view.addSubview(uiScroll)
-                }
-            } else if ($0.error != nil){
-                guard let error = $0.error else {return}
-                Task {
-                    self.error.showError(view: self.view, errorText: error)
-                    self.loader.hideLoader(view: self.view)
-                }
-            }
-        }
-    }
-    
-    // MARK: - TableView Setup
-    /// Setting TableView properties
-    private func setupTableView() {
-        myTableView = UITableView(frame: view.frame)
         
-        myTableView.register(ProductListingTableItem.self, forCellReuseIdentifier:  ProductListingTableItem.identifer)
-        myTableView.rowHeight = UITableView.automaticDimension
-
-        myTableView.dataSource = self
-        myTableView.delegate = self
+        /// Setting up pull to request
+        setupPullToRefresh()
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+       fetchData()
     }
     
     // MARK: - UITableView Item count
@@ -106,9 +71,69 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         return cell
     }
     
+    // MARK: Pull To Refresh
+    /// Pull to request setup
+    private func setupPullToRefresh() {
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        myTableView.addSubview(refreshControl)
+    }
     
+    // MARK: - Fetch Data from ViewModel
+    /// Fetch data from ViewModel
+    private func fetchData() {
+        Task {
+            await viewModel.getStoreDetails()
+        }
+    }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    // MARK: ViewModel listener
+    /// Listening the changes in the viewmodel's publisher
+    private func viewModelListener() {
+        cancellable = viewModel.$store.sink {
+    
+            if ($0.isLoading == true) {
+                Task {
+                    if (!self.refreshControl.isRefreshing) {
+                        self.loader.showLoader(view: self.view)
+                    }
+                }
+            } else if ($0.response != nil) {
+                guard let response = $0.response else {return}
+                Task {
+                    self.storeItems = response.items
+                    self.view.addSubview(self.myTableView)
+                    
+                    // Ending the refresh UI
+                    if (self.refreshControl.isRefreshing) {
+                        self.refreshControl.endRefreshing()
+                    }
+                }
+            } else if ($0.error != nil){
+                guard let error = $0.error else {return}
+                Task {
+                    self.loader.hideLoader(view: self.view)
+                    self.error.showError(view: self.view, errorText: error)
+                    
+                    // Ending the refresh UI
+                    if (self.refreshControl.isRefreshing) {
+                        self.refreshControl.endRefreshing()
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - TableView Setup
+    /// Setting TableView properties
+    private func setupTableView() {
+        myTableView = UITableView(frame: view.frame)
+        
+        myTableView.register(ProductListingTableItem.self, forCellReuseIdentifier:  ProductListingTableItem.identifer)
+        myTableView.rowHeight = UITableView.automaticDimension
+        self.myTableView.frame = CGRect(x: 0, y: 164, width: self.view.frame.size.width, height: self.view.frame.size.height - 164)
+
+        myTableView.dataSource = self
+        myTableView.delegate = self
     }
 }

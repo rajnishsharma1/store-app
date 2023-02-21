@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import Combine
 
-class ProductListingCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class ProductListingCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     //MARK: - Properties
     // Defines a cancellable object to retrive the state of the network calls
@@ -24,6 +24,8 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     private var loader: LoaderView = LoaderView()
     private var error: ErrorView = ErrorView()
     private var myCollectionView: UICollectionView!
+    
+    private let refreshControl: UIRefreshControl = UIRefreshControl()
     
     // MARK: - Lifecycle
     /// Lifecycle
@@ -43,23 +45,47 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         
         /// Observing publisher in ViewModel
         viewModelListener()
+        
+        /// Setting up pull to request
+        setupPullToRefresh()
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+       fetchData()
     }
     
     // MARK: - CollectionView customizations
     private func setupCollectionView() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: 90, height: 140)
-        layout.scrollDirection = .vertical
-        myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         
+        // Setting section layout
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 10, right: 10)
+        layout.scrollDirection = .vertical
+        
+        // Setting padding and axis values and UI Properties
+        myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+        myCollectionView.frame = CGRect(x: 0, y: 164, width: self.view.frame.size.width, height: self.view.frame.size.height - 164)
+        myCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        myCollectionView?.backgroundColor = UIColor.white
+        
+        // Setting delegate and data source
         myCollectionView?.dataSource = self
         myCollectionView?.delegate = self
-        myCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
-        myCollectionView?.backgroundColor = UIColor.white
+        // Setting bounce properties for Pull to refresh
+        myCollectionView.bounces = true
+        myCollectionView.alwaysBounceVertical = true
+        
+        // Regestering custom item as individual cell
         myCollectionView?.register(ProductListingCollectionItem.self, forCellWithReuseIdentifier: ProductListingCollectionItem.identifer)
-        
+    }
+    
+    // MARK: Pull To Refresh
+    /// Pull to request setup
+    private func setupPullToRefresh() {
+        refreshControl.attributedTitle = NSAttributedString(string: "")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        myCollectionView.addSubview(refreshControl)
     }
     
     // MARK: - Fetch Data from ViewModel
@@ -73,21 +99,32 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     private func viewModelListener() {
         cancellable = viewModel.$store.sink {
             if ($0.isLoading == true) {
-                Task {self.loader.showLoader(view: self.view)}
+                Task {
+                    if (!self.refreshControl.isRefreshing) {
+                        self.loader.showLoader(view: self.view)
+                    }
+                }
             } else if ($0.response != nil) {
                 guard let response = $0.response else {return}
                 Task {
                     self.storeItems = response.items
-                    let uiScroll = UIScrollView(frame: self.view.frame)
-                    self.myCollectionView.frame = CGRect(x: 0, y: 164, width: self.view.frame.size.width, height: self.view.frame.size.height - 164)
-                    uiScroll.addSubview(self.myCollectionView)
-                    self.view.addSubview(uiScroll)
+                    self.view.addSubview(self.myCollectionView)
+                    
+                    // Ending the refresh UI
+                    if (self.refreshControl.isRefreshing) {
+                        self.refreshControl.endRefreshing()
+                    }
                 }
             } else if ($0.error != nil){
                 guard let error = $0.error else {return}
                 Task {
                     self.error.showError(view: self.view, errorText: error)
                     self.loader.hideLoader(view: self.view)
+                    
+                    // Ending the refresh UI
+                    if (self.refreshControl.isRefreshing) {
+                        self.refreshControl.endRefreshing()
+                    }
                 }
             }
         }
@@ -107,5 +144,11 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         myCell.itemPrice.text = storeItems[indexPath.row].price
         myCell.itemImage.setCustomImage(storeItems[indexPath.row].image)
         return myCell
+    }
+    
+    // MARK: Size of each Item
+    /// Setting size for each item of collectionView
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: 90, height: 140)
     }
 }
