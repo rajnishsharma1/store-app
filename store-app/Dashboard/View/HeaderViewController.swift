@@ -48,24 +48,42 @@ class HeaderViewController : UIViewController {
         view.addSubview(exploreLabel)
         view.addSubview(filterLabel)
         
-        // Mappding views to string to set the constraints
-        let viewsDict = [
-            "searchBar" : searchBar,
-            "exploreLabel" : exploreLabel,
-            "filterLabel" : filterLabel
-        ] as [String : Any]
+        addExploreLabelConstraint()
+        addFilterLabelConstraint()
+        addSearchBarConstraint()
+    }
+    
+    // MARK: - Constraints for Explore Label
+    /// Constraints for Explore label
+    private func addExploreLabelConstraint() {
+        let labelTop = NSLayoutConstraint(item: exploreLabel, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 55)
         
-        // Adding contstraints for the view
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-55-[exploreLabel]", options: [], metrics: nil, views: viewsDict))
+        let labelLeading = NSLayoutConstraint(item: exploreLabel, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 49)
         
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-55-[filterLabel]", options: [], metrics: nil, views: viewsDict))
+        view.addConstraints([labelTop, labelLeading])
+    }
+    
+    // MARK: - Constraints for Filter Label
+    /// Constraints for Explore label
+    private func addFilterLabelConstraint() {
+        let filterTop = NSLayoutConstraint(item: filterLabel, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 55)
         
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[exploreLabel]-15-[searchBar(50)]", options: [], metrics: nil, views: viewsDict))
+        let filterTrailing = NSLayoutConstraint(item: filterLabel, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -34)
         
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[filterLabel]-15-[searchBar(50)]", options: [], metrics: nil, views: viewsDict))
+        view.addConstraints([filterTop, filterTrailing])
+    }
+    
+    // MARK: - Constraints for Search Bar
+    /// Constraints for Explore label
+    private func addSearchBarConstraint() {
+        let searchBarTop = NSLayoutConstraint(item: searchBar, attribute: .top, relatedBy: .equal, toItem: exploreLabel, attribute: .bottom, multiplier: 1, constant: 15)
         
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[exploreLabel]-[filterLabel]-20-|", options: [], metrics: nil, views: viewsDict))
+        let searchLeading = NSLayoutConstraint(item: searchBar, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 34)
         
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[searchBar]-20-|", options: [], metrics: nil, views: viewsDict))
+        let searchHeight = NSLayoutConstraint(item: searchBar, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 50)
+        
+        let searchTrailing = NSLayoutConstraint(item: searchBar, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -34)
+        
+        view.addConstraints([searchBarTop, searchLeading, searchHeight, searchTrailing])
     }
 }
