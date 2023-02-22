@@ -18,7 +18,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     /// Data Objects
     // To store list of items that we receive from the api
     private var storeItems: [ItemModel] = []
-    private var viewModel: StoreViewModel = StoreViewModel()
+    private var viewModel: StoreViewModel = StoreViewModel.instance
     
     /// UI Elements
     private var loader: LoaderView = LoaderView()
@@ -28,7 +28,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     private let refreshControl: UIRefreshControl = UIRefreshControl()
     
     // MARK: - Lifecycle
-    /// Lifecycle
+    /// Lifecycle/Users/rajnish/xcodeProjects/store-app/store-app/Dashboard/View/DashboardViewController.swift
     /// Initial Loading
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +67,9 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         myCollectionView.frame = CGRect(x: 0, y: 164, width: self.view.frame.size.width, height: self.view.frame.size.height - 164)
         myCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         myCollectionView?.backgroundColor = UIColor.white
+        
+        // Dismiss the keyboard when the table view is dragged
+        myCollectionView.keyboardDismissMode = .onDrag
         
         // Setting delegate and data source
         myCollectionView?.dataSource = self
@@ -109,6 +112,9 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
                 Task {
                     self.storeItems = response.items
                     self.view.addSubview(self.myCollectionView)
+                    
+                    // Reloding the collectionView UI so we get latest results
+                    self.myCollectionView.reloadData()
                     
                     // Ending the refresh UI
                     if (self.refreshControl.isRefreshing) {

@@ -38,4 +38,17 @@ class StoreRepository {
         }
         return store
     }
+    
+    func searchStore(searchedStore: String) -> DataWrapper<StoreData> {
+        var store: DataWrapper<StoreData> = DataWrapper()
+        
+        let storeLocalData = CoreDatahelper().searchStore(searchedStore: searchedStore)
+        if storeLocalData.items.count > 0 {
+            store.response = storeLocalData
+        } else {
+            store.error = Strings.errorMessage
+        }
+        
+        return store
+    }
 }

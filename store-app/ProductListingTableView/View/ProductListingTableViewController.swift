@@ -19,7 +19,7 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
     // Defines a cancellable object to retrive the state of the network calls
     private var cancellable: AnyCancellable?
     
-    private var viewModel: StoreViewModel = StoreViewModel()
+    private var viewModel: StoreViewModel = StoreViewModel.instance
     
     /// UI Elements
     private var myTableView: UITableView!
@@ -91,7 +91,6 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
     /// Listening the changes in the viewmodel's publisher
     private func viewModelListener() {
         cancellable = viewModel.$store.sink {
-    
             if ($0.isLoading == true) {
                 Task {
                     if (!self.refreshControl.isRefreshing) {
@@ -104,6 +103,9 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
                     self.storeItems = response.items
                     self.view.addSubview(self.myTableView)
                     
+                    // Reloding the collectionView UI so we get latest results
+                    self.myTableView.reloadData()
+                    
                     // Ending the refresh UI
                     if (self.refreshControl.isRefreshing) {
                         self.refreshControl.endRefreshing()
@@ -114,7 +116,7 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
                 Task {
                     self.loader.hideLoader(view: self.view)
                     self.error.showError(view: self.view, errorText: error)
-                    
+                    self.myTableView.removeFromSuperview()
                     // Ending the refresh UI
                     if (self.refreshControl.isRefreshing) {
                         self.refreshControl.endRefreshing()
@@ -128,6 +130,9 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
     /// Setting TableView properties
     private func setupTableView() {
         myTableView = UITableView(frame: view.frame)
+        
+        // Dismiss the keyboard when the table view is dragged
+        myTableView.keyboardDismissMode = .onDrag
         
         myTableView.register(ProductListingTableItem.self, forCellReuseIdentifier:  ProductListingTableItem.identifer)
         myTableView.rowHeight = UITableView.automaticDimension

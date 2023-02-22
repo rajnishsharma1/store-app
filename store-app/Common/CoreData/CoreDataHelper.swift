@@ -51,13 +51,14 @@ class CoreDatahelper {
         
         let fetchRequest = NSFetchRequest<StoreDataItem>(entityName: CoreDataConstants.entityName)
         
+        // Sorting stored items with name
+        let sortDescription = NSSortDescriptor(key: "name", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescription]
+        
         do {
-            var storeItems = try mainContext.fetch(fetchRequest) as NSArray
+            let storeItems = try mainContext.fetch(fetchRequest) as NSArray
             
-            // Sorting stored items with name
-            storeItems = storeItems.sorted { a, b in
-                (a as! StoreDataItem).name ?? "" < (b as! StoreDataItem).name ?? ""
-            } as NSArray
             var itemList: [ItemModel] = []
             
             for storeItem in storeItems {
@@ -76,6 +77,41 @@ class CoreDatahelper {
             return nil
         }
         
+        return store
+    }
+    
+    func searchStore(searchedStore: String) -> StoreData {
+        var store: StoreData
+        let fetchRequest = NSFetchRequest<StoreDataItem>(entityName: CoreDataConstants.entityName)
+        
+        // Sorting stored items with name
+        let sortDescription = NSSortDescriptor(key: "name", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescription]
+
+        fetchRequest.predicate = NSPredicate(format: "price CONTAINS[cd] %@", argumentArray: [searchedStore])
+
+        do {
+            let storeItems = try mainContext.fetch(fetchRequest) as NSArray
+
+            var itemList: [ItemModel] = []
+
+            for storeItem in storeItems {
+                itemList.append(ItemModel(name: (storeItem  as? StoreDataItem)?.name ?? "",
+                price: (storeItem as? StoreDataItem)?.price ?? "",
+                extra: (storeItem  as? StoreDataItem)?.extra ?? "",
+                image: (storeItem  as? StoreDataItem)?.image ?? ""))
+            }
+
+            if itemList.count > 0 {
+                store = StoreData(items: itemList)
+            } else {
+                store = StoreData(items: [])
+            }
+        } catch {
+            store = StoreData(items: [])
+        }
+        print("itemList.count ==>  \(store.items.count)")
         return store
     }
     

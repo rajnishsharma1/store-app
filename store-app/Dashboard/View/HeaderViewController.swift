@@ -8,14 +8,10 @@
 import Foundation
 import UIKit
 
-class HeaderViewController : UIViewController, UISearchBarDelegate {
-    private var searchBar: UISearchBar = UISearchBar()
+class HeaderViewController : UIViewController {
+    var searchBar: UISearchBar = UISearchBar()
     private var exploreLabel: UILabel = UILabel()
     private var filterLabel: UILabel = UILabel()
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange textSearched: String) {
-        print(searchBar.text!)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +31,6 @@ class HeaderViewController : UIViewController, UISearchBarDelegate {
         
         // Visual properties of searchBar
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0))
-        searchBar.delegate = self
         searchBar.searchTextField.backgroundColor = UIColor.clear
         searchBar.layer.cornerRadius = 25
         searchBar.placeholder = Strings.search

@@ -7,13 +7,33 @@
 
 import UIKit
 
-class DashboardViewController: UITabBarController {
+class DashboardViewController: UITabBarController, UISearchBarDelegate {
+    private var header: HeaderViewController = HeaderViewController()
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange textSearched: String) {
+        if (searchBar.text != nil && searchBar.text!.count > 1) {
+            StoreViewModel.instance.searchStore(searchedStore: searchBar.text ?? "")
+        } else {
+            StoreViewModel.instance.resetSearch()
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        if header.searchBar.canResignFirstResponder {
+            header.searchBar.resignFirstResponder()
+        }
+    }
+    
+    func didPresentSearchController(searchController: UISearchController) {
+        header.searchBar.becomeFirstResponder()
+    }
     
     // MARK: - Lifecycle
     /// Lifecycle of DashBoardViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(HeaderViewController().view)
+        view.addSubview(header.view)
+        header.searchBar.delegate = self
         createbottomNavBar()
     }
     
