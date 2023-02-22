@@ -45,7 +45,6 @@ class StoreViewModel {
     // MARK: - Search store
     /// Searching for a store from CoreData
     func searchStore(searchedStore: String) {
-        print("searchedStore ==> \(searchedStore)")
         if (searchedStore != "") {
             if (searchedStore.count > 3) {
                 // Adding a deboune of 0.5 seconds
