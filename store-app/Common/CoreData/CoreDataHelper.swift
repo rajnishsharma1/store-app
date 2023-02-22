@@ -89,7 +89,7 @@ class CoreDatahelper {
         
         fetchRequest.sortDescriptors = [sortDescription]
 
-        fetchRequest.predicate = NSPredicate(format: "price CONTAINS[cd] %@", argumentArray: [searchedStore])
+        fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", argumentArray: [searchedStore])
 
         do {
             let storeItems = try mainContext.fetch(fetchRequest) as NSArray
@@ -111,7 +111,6 @@ class CoreDatahelper {
         } catch {
             store = StoreData(items: [])
         }
-        print("itemList.count ==>  \(store.items.count)")
         return store
     }
     

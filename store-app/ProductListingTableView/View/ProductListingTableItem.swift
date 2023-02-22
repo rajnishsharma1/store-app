@@ -36,20 +36,24 @@ class ProductListingTableItem : UITableViewCell {
         
         // Visual properties of itemName
         itemName.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        itemName.textColor = UIColor(named: Strings.itemColor)
+        
+        contentView.backgroundColor = UIColor(named: Strings.tableBackgroundColor)
         
         // Visual properties of extra
         itemPrice.font = UIFont.systemFont(ofSize: 14)
+        itemPrice.textColor = UIColor(named: Strings.priceColor)
         
         // Visual properties of itemPrice
         extra.font = UIFont.systemFont(ofSize: 12)
-        extra.textColor = .gray
+        extra.textColor = UIColor(named: Strings.extraColor)
         
         // Visual properties for placeholder
         mrpPlaceHolder.text = Strings.mrp
         mrpPlaceHolder.font = UIFont.systemFont(ofSize: 14)
-        mrpPlaceHolder.textColor = .gray
+        mrpPlaceHolder.textColor = UIColor(named: Strings.mrpPlaceholderColor)
         
-        divider.backgroundColor = UIColor(named: Strings.divider)
+        divider.backgroundColor = UIColor(named: Strings.dividerColor)
         
         itemImage.translatesAutoresizingMaskIntoConstraints = false
         itemName.translatesAutoresizingMaskIntoConstraints = false

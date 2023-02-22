@@ -134,6 +134,10 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         // Dismiss the keyboard when the table view is dragged
         myTableView.keyboardDismissMode = .onDrag
         
+        myTableView.separatorStyle = .none
+        
+        myTableView.backgroundColor = .white
+        
         myTableView.register(ProductListingTableItem.self, forCellReuseIdentifier:  ProductListingTableItem.identifer)
         myTableView.rowHeight = UITableView.automaticDimension
         self.myTableView.frame = CGRect(x: 0, y: 164, width: self.view.frame.size.width, height: self.view.frame.size.height - 164)

@@ -33,6 +33,7 @@ class HeaderViewController : UIViewController {
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0))
         searchBar.searchTextField.backgroundColor = UIColor.clear
         searchBar.layer.cornerRadius = 25
+        searchBar.barStyle = UIBarStyle.black
         searchBar.placeholder = Strings.search
         searchBar.backgroundColor = UIColor.white
         searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)

@@ -20,8 +20,14 @@ class Strings {
     static let headerBackgroundColor = "HeaderBackground"
     static let filterTextColor = "FilterText"
     static let tabBackgroundColor = "TabBackground"
-    static let tabButton = "TabButton"
-    static let divider = "Divider"
+    static let tabButtonColor = "TabButton"
+    static let dividerColor = "Divider"
+    static let tableBackgroundColor = "TableBackground"
+    static let collectionBackgroundColor = "CollectionBackground"
+    static let itemColor = "Item"
+    static let priceColor = "Price"
+    static let mrpPlaceholderColor = "MrpPlaceholder"
+    static let extraColor = "Extra"
     
     // Images
     static let tabButtonImage = "tabButton.png"

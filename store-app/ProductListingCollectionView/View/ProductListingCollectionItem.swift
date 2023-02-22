@@ -33,10 +33,13 @@ class ProductListingCollectionItem: UICollectionViewCell {
         
         // Visual properties of itemName
         itemName.font = UIFont.systemFont(ofSize: 14)
+        itemName.textColor = UIColor(named: Strings.itemColor)
+        
+        contentView.backgroundColor = UIColor(named: Strings.tableBackgroundColor)
         
         // Visual properties of extra
         itemPrice.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        
+        itemPrice.textColor = UIColor(named: Strings.priceColor)
         
         itemImage.translatesAutoresizingMaskIntoConstraints = false
         itemName.translatesAutoresizingMaskIntoConstraints = false

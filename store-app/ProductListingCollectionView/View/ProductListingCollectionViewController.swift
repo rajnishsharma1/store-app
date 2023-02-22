@@ -66,7 +66,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         myCollectionView.frame = CGRect(x: 0, y: 164, width: self.view.frame.size.width, height: self.view.frame.size.height - 164)
         myCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        myCollectionView?.backgroundColor = UIColor.white
+        myCollectionView.backgroundColor = UIColor.white
         
         // Dismiss the keyboard when the table view is dragged
         myCollectionView.keyboardDismissMode = .onDrag

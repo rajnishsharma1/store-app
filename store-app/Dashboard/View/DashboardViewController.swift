@@ -11,7 +11,7 @@ class DashboardViewController: UITabBarController, UISearchBarDelegate {
     private var header: HeaderViewController = HeaderViewController()
     
     func searchBar(_ searchBar: UISearchBar, textDidChange textSearched: String) {
-        if (searchBar.text != nil && searchBar.text!.count > 1) {
+        if (searchBar.text != nil && searchBar.text!.count > 3) {
             StoreViewModel.instance.searchStore(searchedStore: searchBar.text ?? "")
         } else {
             StoreViewModel.instance.resetSearch()
@@ -66,7 +66,7 @@ class DashboardViewController: UITabBarController, UISearchBarDelegate {
         
         // Tabbar button tint color
         // Setting green color for active tab button
-        self.tabBar.tintColor = UIColor(named: Strings.tabButton)
+        self.tabBar.tintColor = UIColor(named: Strings.tabButtonColor)
         
        initSwipe()
     }
