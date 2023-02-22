@@ -49,17 +49,44 @@ class ProductListingCollectionItem: UICollectionViewCell {
         contentView.addSubview(itemImage)
         contentView.addSubview(itemName)
         contentView.addSubview(itemPrice)
-
-        // Mappding views to string to set the constraints
-        let viewsDict = [
-            "storeImage" : itemImage,
-            "itemName" : itemName,
-            "itemPrice" : itemPrice,
-        ] as [String : Any]
         
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[storeImage(80)]", options: [], metrics: nil, views: viewsDict))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[storeImage(80)]-[itemName]", options: [], metrics: nil, views: viewsDict))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[itemName]-5-[itemPrice]", options: [], metrics: nil, views: viewsDict))
-        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:[storeImage(80)]", options: [], metrics: nil, views: viewsDict))
+        // Adding constraints for UI Elements
+        addImageConstraints()
+        addItemNameConstraints()
+        addItemPriceConstraints()
+    }
+    
+    // MARK: - Constraints for Item Image
+    /// Constraints for ItemImage
+    private func addImageConstraints() {
+        let imageTop = NSLayoutConstraint(item: itemImage, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 20)
+        
+        let imageLeading = NSLayoutConstraint(item: itemImage, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1, constant: 32)
+        
+        let imageHeight = NSLayoutConstraint(item: itemImage, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 80)
+        
+        let imageWidth = NSLayoutConstraint(item: itemImage, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 80)
+        
+        contentView.addConstraints([imageTop, imageLeading, imageHeight, imageWidth])
+    }
+    
+    // MARK: - Constraints for Item Name
+    /// Constraints for ItemName
+    private func addItemNameConstraints() {
+        let itemNameTop = NSLayoutConstraint(item: itemName, attribute: .top, relatedBy: .equal, toItem: itemImage, attribute: .bottom, multiplier: 1, constant: 8)
+        
+        let itemNameStart = NSLayoutConstraint(item: itemName, attribute: .leading, relatedBy: .equal, toItem: itemImage, attribute: .leading, multiplier: 1, constant: 0)
+        
+        contentView.addConstraints([itemNameTop, itemNameStart])
+    }
+    
+    // MARK: - Constraints for Item Price
+    /// Constraints for ItemPrice
+    private func addItemPriceConstraints() {
+        let itemPriceTop = NSLayoutConstraint(item: itemPrice, attribute: .top, relatedBy: .equal, toItem: itemName, attribute: .bottom, multiplier: 1, constant: 5)
+        
+        let itemPriceStart = NSLayoutConstraint(item: itemPrice, attribute: .leading, relatedBy: .equal, toItem: itemName, attribute: .leading, multiplier: 1, constant: 0)
+        
+        contentView.addConstraints([itemPriceTop, itemPriceStart])
     }
 }

@@ -56,13 +56,12 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
         // Setting section layout
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 32)
         layout.scrollDirection = .vertical
         
         // Setting padding and axis values and UI Properties
         myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         myCollectionView.frame = CGRect(x: 0, y: 164, width: self.view.frame.size.width, height: self.view.frame.size.height - 164)
-        myCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         myCollectionView.backgroundColor = UIColor.white
         
         // Dismiss the keyboard when the table view is dragged
@@ -152,6 +151,6 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     // MARK: Size of each Item
     /// Setting size for each item of collectionView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: 90, height: 140)
+        CGSize(width: 110, height: 140)
     }
 }
