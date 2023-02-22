@@ -25,7 +25,9 @@ class DashboardViewController: UITabBarController, UISearchBarDelegate {
     }
     
     func didPresentSearchController(searchController: UISearchController) {
-        header.searchBar.becomeFirstResponder()
+        if header.searchBar.canBecomeFirstResponder {
+            header.searchBar.becomeFirstResponder()
+        }
     }
     
     // MARK: - Lifecycle
