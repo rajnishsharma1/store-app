@@ -15,8 +15,8 @@ class StoreViewModel {
     
     /// Published Variable
     @Published var store: DataWrapper<StoreData> = DataWrapper()
-    var masterStore: DataWrapper<StoreData> = DataWrapper()
-    var searchedString: String = ""
+    private var masterStore: DataWrapper<StoreData> = DataWrapper()
+    private var searchedString: String = ""
     private let storeRepository: StoreRepository = StoreRepository()
     
     /// Setting DataWrapper from API
@@ -45,23 +45,36 @@ class StoreViewModel {
     // MARK: - Search store
     /// Searching for a store from CoreData
     func searchStore(searchedStore: String) {
-        searchedString = searchedStore
-        store.isLoading = true
-        
-        let storeResponse = storeRepository.searchStore(searchedStore: searchedStore)
-        if storeResponse.response != nil {
-            store.response = storeResponse.response
+        print("searchedStore ==> \(searchedStore)")
+        if (searchedStore != "") {
+            if (searchedStore.count > 3) {
+                // Adding a deboune of 0.5 seconds
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+                    searchedString = searchedStore
+                    store.isLoading = true
+                    
+                    let storeResponse = storeRepository.searchStore(searchedStore: searchedStore)
+                    if storeResponse.response != nil {
+                        store.response = storeResponse.response
+                    } else {
+                        store.response = nil
+                        store.error = storeResponse.error
+                    }
+                    store.isLoading = false
+                }
+            }
         } else {
-            store.response = nil
-            store.error = storeResponse.error
+            resetSearch()
         }
-        store.isLoading = false
+        
     }
     
     // MARK: - Reset seach
     /// Reset search by setting the original copy of store
-    func resetSearch() {
+    private func resetSearch() {
         store.response = masterStore.response
+        store.error = nil
+        searchedString = ""
     }
 }
 

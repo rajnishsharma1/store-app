@@ -11,11 +11,7 @@ class DashboardViewController: UITabBarController, UISearchBarDelegate {
     private var header: HeaderViewController = HeaderViewController()
     
     func searchBar(_ searchBar: UISearchBar, textDidChange textSearched: String) {
-        if (searchBar.text != nil && searchBar.text!.count > 3) {
-            StoreViewModel.instance.searchStore(searchedStore: searchBar.text ?? "")
-        } else {
-            StoreViewModel.instance.resetSearch()
-        }
+        StoreViewModel.instance.searchStore(searchedStore: searchBar.text ?? "")
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
