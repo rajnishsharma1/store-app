@@ -37,9 +37,6 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         error = ErrorView(frame: view.frame)
         view.backgroundColor = .white
         
-        /// Fetching data from Api
-        fetchData()
-        
         /// Setting up layouts
         setupCollectionView()
         
@@ -126,7 +123,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
                 Task {
                     self.error.showError(view: self.view, errorText: error)
                     self.loader.hideLoader(view: self.view)
-                    
+                    self.myCollectionView.removeFromSuperview()
                     // Ending the refresh UI
                     if (self.refreshControl.isRefreshing) {
                         self.refreshControl.endRefreshing()
