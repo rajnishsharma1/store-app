@@ -28,18 +28,17 @@ extension UIImageView {
         }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
-                 if let error = error {
-                     print("Couldn't download image: ", error)
-                     return
-                 }
-                 
-                 guard let data = data else { return }
-                 let image = UIImage(data: data)
-                 imageCache.setObject(image!, forKey: urlString as AnyObject)
-                 
-                 DispatchQueue.main.async {
-                     self.image = image
-                 }
-             }.resume()
+            if error != nil {
+                return
+            }
+            
+            guard let data = data else { return }
+            let image = UIImage(data: data)
+            imageCache.setObject(image!, forKey: urlString as AnyObject)
+            
+            DispatchQueue.main.async {
+                self.image = image
+            }
+        }.resume()
     }
 }
