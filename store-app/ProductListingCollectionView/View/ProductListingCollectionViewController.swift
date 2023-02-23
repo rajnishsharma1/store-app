@@ -144,7 +144,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListingCollectionItem.identifer, for: indexPath) as! ProductListingCollectionItem
         myCell.itemName.text = storeItems[indexPath.row].name
         myCell.itemPrice.text = storeItems[indexPath.row].price
-        myCell.itemImage.setCustomImage(storeItems[indexPath.row].image)
+        myCell.itemImage.setCustomImage(storeItems[indexPath.row].image ?? "")
         return myCell
     }
     

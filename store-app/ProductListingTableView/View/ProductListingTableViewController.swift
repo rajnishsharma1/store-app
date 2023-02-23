@@ -67,7 +67,7 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         cell.itemName.text = storeItems[indexPath.row].name
         cell.itemPrice.text = storeItems[indexPath.row].price
         cell.extra.text = storeItems[indexPath.row].extra
-        cell.itemImage.setCustomImage(storeItems[indexPath.row].image)
+        cell.itemImage.setCustomImage(storeItems[indexPath.row].image ?? "")
         return cell
     }
     
