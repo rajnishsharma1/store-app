@@ -20,6 +20,7 @@ class Strings {
     static let headerBackgroundColor = "HeaderBackground"
     static let filterTextColor = "FilterText"
     static let tabBackgroundColor = "TabBackground"
+    static let unselectedTabButtonBackgroundColor = "UnselectedTabButton"
     static let tabButtonColor = "TabButton"
     static let dividerColor = "Divider"
     static let tableBackgroundColor = "TableBackground"
@@ -31,5 +32,6 @@ class Strings {
     
     // Images
     static let tabButtonImage = "tabButton.png"
+    static let activeTabButtonImage = "activeTabButtonImage.png"
     static let placeholderImage = "storePlaceholder.png"
 }

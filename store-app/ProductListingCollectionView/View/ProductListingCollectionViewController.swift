@@ -28,7 +28,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     private let refreshControl: UIRefreshControl = UIRefreshControl()
     
     // MARK: - Lifecycle
-    /// Lifecycle/Users/rajnish/xcodeProjects/store-app/store-app/Dashboard/View/DashboardViewController.swift
+    /// Lifecycle
     /// Initial Loading
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -35,7 +35,7 @@ class ProductListingCollectionItem: UICollectionViewCell {
         itemName.font = UIFont.systemFont(ofSize: 14)
         itemName.textColor = UIColor(named: Strings.itemColor)
         
-        contentView.backgroundColor = UIColor(named: Strings.tableBackgroundColor)
+        contentView.backgroundColor = UIColor(named: Strings.collectionBackgroundColor)
         
         // Visual properties of extra
         itemPrice.font = UIFont.systemFont(ofSize: 14, weight: .bold)
