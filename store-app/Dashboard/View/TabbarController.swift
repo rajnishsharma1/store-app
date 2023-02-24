@@ -14,7 +14,7 @@ class TabbarController: UITabBarController , UISearchBarDelegate{
     private var header: HeaderViewController = HeaderViewController()
     
     // MARK: - Tab Image
-    let tabBarImage = UIImage(named: Strings.activeTabButtonImage)!
+    let tabBarImage: UIImage = UIImage(named: Strings.activeTabButtonImage)!
     
     // MARK: - Lifecycle
     /// Lifecycle
@@ -131,15 +131,8 @@ class TabbarController: UITabBarController , UISearchBarDelegate{
     
     // MARK: - SearchBar Button Click
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if header.searchBar.canResignFirstResponder {
-            header.searchBar.resignFirstResponder()
-        }
-    }
-    
-    // MARK: - SearchBar to become first responder
-    func didPresentSearchController(searchController: UISearchController) {
-        if header.searchBar.canBecomeFirstResponder {
-            header.searchBar.becomeFirstResponder()
+        if searchBar.canResignFirstResponder {
+            searchBar.resignFirstResponder()
         }
     }
 }
