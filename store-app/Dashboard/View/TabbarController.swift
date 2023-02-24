@@ -14,13 +14,7 @@ class TabbarController: UITabBarController , UISearchBarDelegate{
     private var header: HeaderViewController = HeaderViewController()
     
     // MARK: - Tab Image
-    let tabBarImages = [
-        UIImage(named: Strings.activeTabButtonImage)!,
-        UIImage(named: Strings.activeTabButtonImage)!,
-        UIImage(named: Strings.activeTabButtonImage)!,
-        UIImage(named: Strings.activeTabButtonImage)!,
-        UIImage(named: Strings.activeTabButtonImage)!
-    ]
+    let tabBarImage = UIImage(named: Strings.activeTabButtonImage)!
     
     // MARK: - Lifecycle
     /// Lifecycle
@@ -104,7 +98,7 @@ class TabbarController: UITabBarController , UISearchBarDelegate{
     
     // MARK: - Tab Bar Item
     private func tabbarItem(at index: Int) -> UITabBarItem {
-        let tableItem = UITabBarItem(title: nil, image: self.tabBarImages[index], selectedImage: nil)
+        let tableItem = UITabBarItem(title: nil, image: self.tabBarImage, selectedImage: nil)
         tableItem.imageInsets = UIEdgeInsets(top: 14.5, left: 0, bottom: -14.5, right: 0)
         return tableItem
     }
@@ -118,7 +112,7 @@ class TabbarController: UITabBarController , UISearchBarDelegate{
         
         for i in 0..<viewControllers.count {
             let tabbarItem = viewControllers[i].tabBarItem
-            let tabbarImage = self.tabBarImages[i]
+            let tabbarImage = self.tabBarImage
             tabbarItem?.selectedImage = tabbarImage.withRenderingMode(.alwaysTemplate)
             tabbarItem?.image = tabbarImage.withRenderingMode(
                 i == selectedIndex ? .alwaysOriginal : .alwaysTemplate
@@ -126,7 +120,7 @@ class TabbarController: UITabBarController , UISearchBarDelegate{
         }
         
         if selectedIndex == 1 {
-            viewControllers[selectedIndex].tabBarItem.selectedImage = self.tabBarImages[1].withRenderingMode(.alwaysOriginal)
+            viewControllers[selectedIndex].tabBarItem.selectedImage = self.tabBarImage.withRenderingMode(.alwaysOriginal)
         }
     }
     
