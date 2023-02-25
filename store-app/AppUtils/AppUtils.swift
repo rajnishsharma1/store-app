@@ -9,33 +9,26 @@ import Foundation
 import UIKit
 
 // MARK: - Extensions for UIImageView
-
-var imageCache = NSCache<AnyObject, AnyObject>()
 extension UIImageView {
     
     // MARK: Setting image to UIImageView
     func setCustomImage(_ urlString: String) {
-        
-        if let cacheImage = imageCache.object(forKey: urlString as AnyObject) as? UIImage {
-            self.image = cacheImage
-            return
-        }
+        let placeHolderImage: UIImage = UIImage(named: Strings.placeholderImage)!
         
         guard let url = URL(string: urlString) else {
-            let placeHolderImage: UIImage = UIImage(named: Strings.placeholderImage)!
-            self.image = placeHolderImage
             return
         }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error != nil {
-                return
+                DispatchQueue.main.async {
+                    self.image = placeHolderImage
+                }
             }
-            
+
             guard let data = data else { return }
             let image = UIImage(data: data)
-            imageCache.setObject(image!, forKey: urlString as AnyObject)
-            
+
             DispatchQueue.main.async {
                 self.image = image
             }
