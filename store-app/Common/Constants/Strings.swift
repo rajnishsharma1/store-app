@@ -15,6 +15,7 @@ class Strings {
     
     // Messages
     static let errorMessage = "No store found!"
+    static let comingSoon = "Coming soon..."
     
     // Colors
     static let headerBackgroundColor = "HeaderBackground"

@@ -47,6 +47,8 @@ class ErrorViewController: UIViewController {
         Task {await viewModel.getStoreDetails()}
     }
     
+    // MARK: - Constraints for Error Label
+    /// Constraints for Error label
     private func addErrorLabelContstraint() {
         let errorLabelTop = NSLayoutConstraint(item: errorLabel, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: view.frame.height * 0.5)
 
@@ -57,6 +59,8 @@ class ErrorViewController: UIViewController {
         view.addConstraints([errorLabelTop, errorLabelLeading, errorLabelTrailing])
     }
     
+    // MARK: - Constraints for Retry Button
+    /// Constraints for Retry button
     private func addRetryButtonConstraint() {
         let retryButtonTop = NSLayoutConstraint(item: retryButton, attribute: .top, relatedBy: .equal, toItem: errorLabel, attribute: .bottom, multiplier: 1, constant: 10)
 
