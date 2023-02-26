@@ -14,6 +14,7 @@ class ErrorViewController: UIViewController {
     private var errorLabel: UILabel = UILabel()
     private var retryButton: UIButton = UIButton()
     
+    /// Data Elements
     private var viewModel: StoreViewModel = StoreViewModel.instance
     
     override func viewDidLoad() {

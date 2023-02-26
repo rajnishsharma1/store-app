@@ -9,8 +9,10 @@ import Foundation
 
 class StoreViewModel {
     
+    /// instance of StoreViewModel
     static let instance: StoreViewModel = StoreViewModel()
     
+    /// Setting StoreViewModel default constructot to private
     private init() {}
     
     /// Published Variable
@@ -47,7 +49,7 @@ class StoreViewModel {
     func searchStore(searchedStore: String) {
         if (searchedStore != "") {
             if (searchedStore.count > 3) {
-                // Adding a deboune of 0.5 seconds
+                // Adding a delay of 0.5 seconds
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
                     searchedString = searchedStore
                     store.isLoading = true
