@@ -24,7 +24,7 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
     /// UI Elements
     private var myTableView: UITableView!
     private var loader: LoaderView = LoaderView()
-    private var error: ErrorView = ErrorView()
+    private var error: ErrorViewController = ErrorViewController()
     private let refreshControl: UIRefreshControl = UIRefreshControl()
     
     // MARK: - Lifecycle
@@ -34,7 +34,6 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         super.viewDidLoad()
         
         loader = LoaderView(frame: view.frame)
-        error = ErrorView(frame: view.frame)
         view.backgroundColor = .white
         
         /// Fetching data from Api
@@ -96,6 +95,7 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
                     if (!self.refreshControl.isRefreshing) {
                         self.loader.showLoader(view: self.view)
                     }
+                    self.error.view.removeFromSuperview()
                 }
             } else if ($0.response != nil) {
                 guard let response = $0.response else {return}
@@ -112,10 +112,10 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
                     }
                 }
             } else if ($0.error != nil){
-                guard let error = $0.error else {return}
+                guard $0.error != nil else {return}
                 Task {
                     self.loader.hideLoader(view: self.view)
-                    self.error.showError(view: self.view, errorText: error)
+                    self.view.addSubview(self.error.view)
                     self.myTableView.removeFromSuperview()
                     // Ending the refresh UI
                     if (self.refreshControl.isRefreshing) {

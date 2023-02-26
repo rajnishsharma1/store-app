@@ -22,7 +22,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     
     /// UI Elements
     private var loader: LoaderView = LoaderView()
-    private var error: ErrorView = ErrorView()
+    private var error: ErrorViewController = ErrorViewController()
     private var myCollectionView: UICollectionView!
     
     private let refreshControl: UIRefreshControl = UIRefreshControl()
@@ -34,7 +34,6 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         super.viewDidLoad()
         
         loader = LoaderView(frame: view.frame)
-        error = ErrorView(frame: view.frame)
         view.backgroundColor = .white
         
         /// Setting up layouts
@@ -102,6 +101,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
                     if (!self.refreshControl.isRefreshing) {
                         self.loader.showLoader(view: self.view)
                     }
+                    self.error.view.removeFromSuperview()
                 }
             } else if ($0.response != nil) {
                 guard let response = $0.response else {return}
@@ -118,9 +118,9 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
                     }
                 }
             } else if ($0.error != nil){
-                guard let error = $0.error else {return}
+                guard $0.error != nil else {return}
                 Task {
-                    self.error.showError(view: self.view, errorText: error)
+                    self.view.addSubview(self.error.view)
                     self.loader.hideLoader(view: self.view)
                     self.myCollectionView.removeFromSuperview()
                     // Ending the refresh UI
