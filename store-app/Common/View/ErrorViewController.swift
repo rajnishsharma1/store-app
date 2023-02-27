@@ -32,12 +32,14 @@ class ErrorViewController: UIViewController {
     // MARK: - Constraints for Error Label
     /// Constraints for Error label
     private func addErrorLabelContstraint() {
-        let errorLabelTop = NSLayoutConstraint(item: errorLabel, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: view.frame.height * 0.5)
+        let errorLabelTop = NSLayoutConstraint(item: errorLabel, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0)
 
         let errorLabelLeading = NSLayoutConstraint(item: errorLabel, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)
 
         let errorLabelTrailing = NSLayoutConstraint(item: errorLabel, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0)
         
-        view.addConstraints([errorLabelTop, errorLabelLeading, errorLabelTrailing])
+        let errorLabelBottom = NSLayoutConstraint(item: errorLabel, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
+        
+        view.addConstraints([errorLabelTop, errorLabelLeading, errorLabelTrailing, errorLabelBottom])
     }
 }
