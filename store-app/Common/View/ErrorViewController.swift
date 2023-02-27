@@ -12,10 +12,6 @@ import UIKit
 class ErrorViewController: UIViewController {
     /// UI Element
     private var errorLabel: UILabel = UILabel()
-    private var retryButton: UIButton = UIButton()
-    
-    /// Data Elements
-    private var viewModel: StoreViewModel = StoreViewModel.instance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,26 +22,11 @@ class ErrorViewController: UIViewController {
         errorLabel.textColor = .gray
         errorLabel.font = UIFont.systemFont(ofSize: 18)
         
-        // UI Properties for Retry Button
-        retryButton.setTitle("Retry", for: .normal)
-        retryButton.setTitleColor(.white, for: .normal)
-        retryButton.setTitleColor(.black, for: .highlighted)
-        retryButton.backgroundColor = .gray
-        retryButton.layer.cornerRadius = 15
-        retryButton.addTarget(self, action: #selector(self.buttonAction), for: .touchUpInside)
-        
         view.addSubview(errorLabel)
-        view.addSubview(retryButton)
         
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
-        retryButton.translatesAutoresizingMaskIntoConstraints = false
         
         addErrorLabelContstraint()
-        addRetryButtonConstraint()
-    }
-    
-    @objc func buttonAction(_ sender:UIButton!) {
-        Task {await viewModel.getStoreDetails()}
     }
     
     // MARK: - Constraints for Error Label
@@ -58,19 +39,5 @@ class ErrorViewController: UIViewController {
         let errorLabelTrailing = NSLayoutConstraint(item: errorLabel, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: 0)
         
         view.addConstraints([errorLabelTop, errorLabelLeading, errorLabelTrailing])
-    }
-    
-    // MARK: - Constraints for Retry Button
-    /// Constraints for Retry button
-    private func addRetryButtonConstraint() {
-        let retryButtonTop = NSLayoutConstraint(item: retryButton, attribute: .top, relatedBy: .equal, toItem: errorLabel, attribute: .bottom, multiplier: 1, constant: 10)
-
-        let retryButtonLeading = NSLayoutConstraint(item: retryButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 150)
-
-        let retryButtonTrailing = NSLayoutConstraint(item: retryButton, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -150)
-        
-        let retryButtonHeight = NSLayoutConstraint(item: retryButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 40)
-        
-        view.addConstraints([retryButtonTop, retryButtonLeading, retryButtonTrailing, retryButtonHeight])
     }
 }

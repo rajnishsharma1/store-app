@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TabbarController: UITabBarController , UISearchBarDelegate{
+class TabbarController: UITabBarController {
     
     // MARK: - UI elements
     private var header: HeaderViewController = HeaderViewController()
@@ -23,8 +23,6 @@ class TabbarController: UITabBarController , UISearchBarDelegate{
         view.addSubview(header.view)
         
         tabBar.backgroundColor = UIColor(named: Strings.tabBackgroundColor)
-        
-        header.searchBar.delegate = self
         
         setUpPageView()
         
@@ -74,6 +72,9 @@ class TabbarController: UITabBarController , UISearchBarDelegate{
         let fourthController = EmptyViewController()
         let fifthController = EmptyViewController()
         
+        header.searchBar.delegate = firstController
+        firstController.searchDelegate = secondController
+        
         firstController.view.tag = 0
         secondController.view.tag = 1
         thirdController.view.tag = 2
@@ -122,11 +123,6 @@ class TabbarController: UITabBarController , UISearchBarDelegate{
         if selectedIndex == 1 {
             viewControllers[selectedIndex].tabBarItem.selectedImage = self.tabBarImage.withRenderingMode(.alwaysOriginal)
         }
-    }
-    
-    // MARK: - SearchBar listener
-    func searchBar(_ searchBar: UISearchBar, textDidChange textSearched: String) {
-        StoreViewModel.instance.searchStore(searchedStore: searchBar.text ?? "")
     }
     
     // MARK: - SearchBar Button Click

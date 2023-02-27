@@ -7,25 +7,23 @@
 
 import Foundation
 import UIKit
-import Combine
 
-class ProductListingTableViewController: UIViewController , UITableViewDataSource, UITableViewDelegate {
+class ProductListingTableViewController: UIViewController , UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, NetworkDelegate {
     
     //MARK: - Properties
     /// Data Objects
     // To store list of items that we receive from the api
     private var storeItems: [ItemModel] = []
     
-    // Defines a cancellable object to retrive the state of the network calls
-    private var cancellable: AnyCancellable?
-    
-    private var viewModel: StoreViewModel = StoreViewModel.instance
+    private var viewModel: StoreViewModel = StoreViewModel()
     
     /// UI Elements
     private var myTableView: UITableView!
     private var loader: LoaderView = LoaderView()
     private var error: ErrorViewController = ErrorViewController()
     private let refreshControl: UIRefreshControl = UIRefreshControl()
+    
+    var searchDelegate: UISearchBarDelegate!
     
     // MARK: - Lifecycle
     /// Lifecycle
@@ -36,17 +34,24 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         loader = LoaderView(frame: view.frame)
         view.backgroundColor = .white
         
+        viewModel.networkDelegate = self
+        
         /// Fetching data from Api
         fetchData()
         
         /// Setting up layouts
         setupTableView()
         
-        /// Observing publisher in ViewModel
-        viewModelListener()
-        
         /// Setting up pull to request
         setupPullToRefresh()
+    }
+    
+    // MARK: - SearchBar listener
+    func searchBar(_ searchBar: UISearchBar, textDidChange textSearched: String) {
+        self.searchDelegate.searchBar?(searchBar, textDidChange: textSearched)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
+            viewModel.searchStore(searchedStore: textSearched)
+        }
     }
     
     @objc func refresh(_ sender: AnyObject) {
@@ -86,41 +91,37 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         }
     }
     
-    // MARK: ViewModel listener
-    /// Listening the changes in the viewmodel's publisher
-    private func viewModelListener() {
-        cancellable = viewModel.$store.sink {
-            if ($0.isLoading == true) {
-                Task {
-                    if (!self.refreshControl.isRefreshing) {
-                        self.loader.showLoader(view: self.view)
-                    }
-                    self.error.view.removeFromSuperview()
+    func updateChanges(result: DataWrapper<StoreData>) {
+        if (result.isLoading == true) {
+            Task {
+                if (!self.refreshControl.isRefreshing) {
+                    self.loader.showLoader(view: self.view)
                 }
-            } else if ($0.response != nil) {
-                guard let response = $0.response else {return}
-                Task {
-                    self.storeItems = response.items
-                    self.view.addSubview(self.myTableView)
-                    
-                    // Reloding the collectionView UI so we get latest results
-                    self.myTableView.reloadData()
-                    
-                    // Ending the refresh UI
-                    if (self.refreshControl.isRefreshing) {
-                        self.refreshControl.endRefreshing()
-                    }
+                self.error.view.removeFromSuperview()
+            }
+        } else if (result.response != nil) {
+            guard let response = result.response else {return}
+            Task {
+                self.storeItems = response.items
+                self.view.addSubview(self.myTableView)
+                
+                // Reloding the collectionView UI so we get latest results
+                self.myTableView.reloadData()
+                
+                // Ending the refresh UI
+                if (self.refreshControl.isRefreshing) {
+                    self.refreshControl.endRefreshing()
                 }
-            } else if ($0.error != nil){
-                guard $0.error != nil else {return}
-                Task {
-                    self.loader.hideLoader(view: self.view)
-                    self.view.addSubview(self.error.view)
-                    self.myTableView.removeFromSuperview()
-                    // Ending the refresh UI
-                    if (self.refreshControl.isRefreshing) {
-                        self.refreshControl.endRefreshing()
-                    }
+            }
+        } else if (result.error != nil){
+            guard result.error != nil else {return}
+            Task {
+                self.loader.hideLoader(view: self.view)
+                self.view.addSubview(self.error.view)
+                self.myTableView.removeFromSuperview()
+                // Ending the refresh UI
+                if (self.refreshControl.isRefreshing) {
+                    self.refreshControl.endRefreshing()
                 }
             }
         }

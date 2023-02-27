@@ -73,6 +73,24 @@ final class store_appUITests: XCTestCase {
         // Then (Matching the performed operation final value with expected value)
         XCTAssertEqual(tabBar.buttons.count, expectedNumberOfTabButtons)
     }
+    
+    func test_filter_label_existence() {
+        let app = XCUIApplication()
+        // Launch the app
+        app.launch()
+        
+        let filterLabel = app.staticTexts.element(matching: .any, identifier: "Filter")
+        XCTAssertTrue(filterLabel.exists)
+    }
+    
+    func test_Explore_label_existence() {
+        let app = XCUIApplication()
+        // Launch the app
+        app.launch()
+        
+        let exploreLabel = app.staticTexts.element(matching: .any, identifier: "Explore")
+        XCTAssertTrue(exploreLabel.exists)
+    }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.

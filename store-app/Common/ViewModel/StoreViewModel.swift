@@ -8,22 +8,23 @@
 import Foundation
 
 class StoreViewModel {
+    var networkDelegate: NetworkDelegate!
     
-    /// instance of StoreViewModel
-    static let instance: StoreViewModel = StoreViewModel()
-    
-    /// Setting StoreViewModel default constructot to private
-    private init() {}
-    
-    /// Published Variable
-    @Published var store: DataWrapper<StoreData> = DataWrapper()
     private var masterStore: DataWrapper<StoreData> = DataWrapper()
     private var searchedString: String = ""
+    
+    var getSearchedString: String {
+        get {
+            return searchedString
+        }
+    }
+    
+    
     private let storeRepository: StoreRepository = StoreRepository()
     
     /// Setting DataWrapper from API
     func getStoreDetails() async {
-        store.isLoading = true
+        networkDelegate.updateChanges(result: DataWrapper(isLoading: true))
         
         // Call the api, and also update the core data if success
         let storeResponse = await storeRepository.getStoreDetails()
@@ -35,13 +36,13 @@ class StoreViewModel {
         }
         
         if storeResponse.response != nil {
-            store.response = storeResponse.response
+            networkDelegate.updateChanges(result: DataWrapper(response: storeResponse.response))
             masterStore.response = storeResponse.response
         } else {
-            store.error = storeResponse.error
+            networkDelegate.updateChanges(result: DataWrapper(error: storeResponse.error))
             masterStore.error = storeResponse.error
         }
-        store.isLoading = false
+        networkDelegate.updateChanges(result: DataWrapper(isLoading: false))
     }
     
     // MARK: - Search store
@@ -49,20 +50,18 @@ class StoreViewModel {
     func searchStore(searchedStore: String) {
         if (searchedStore != "") {
             if (searchedStore.count > 3) {
-                // Adding a delay of 0.5 seconds
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [self] in
-                    searchedString = searchedStore
-                    store.isLoading = true
-                    
-                    let storeResponse = storeRepository.searchStore(searchedStore: searchedStore)
-                    if storeResponse.response != nil {
-                        store.response = storeResponse.response
-                    } else {
-                        store.response = nil
-                        store.error = storeResponse.error
-                    }
-                    store.isLoading = false
+                searchedString = searchedStore
+                networkDelegate.updateChanges(result: DataWrapper(isLoading: true))
+                
+                let storeResponse = storeRepository.searchStore(searchedStore: searchedStore)
+                if storeResponse.response != nil {
+                    networkDelegate.updateChanges(result: DataWrapper(response: storeResponse.response))
+                } else {
+                    networkDelegate.updateChanges(result: DataWrapper(response: nil))
+                    networkDelegate.updateChanges(result: DataWrapper(error: storeResponse.error))
                 }
+                networkDelegate.updateChanges(result: DataWrapper(isLoading: false))
+
             }
         } else {
             resetSearch()
@@ -73,8 +72,9 @@ class StoreViewModel {
     // MARK: - Reset seach
     /// Reset search by setting the original copy of store
     private func resetSearch() {
-        store.response = masterStore.response
-        store.error = nil
+        networkDelegate.updateChanges(result: DataWrapper(response: masterStore.response))
+        networkDelegate.updateChanges(result: DataWrapper(error: nil))
+
         searchedString = ""
     }
 }

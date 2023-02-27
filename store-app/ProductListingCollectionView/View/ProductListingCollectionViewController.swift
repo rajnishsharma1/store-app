@@ -7,18 +7,14 @@
 
 import Foundation
 import UIKit
-import Combine
 
-class ProductListingCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
+class ProductListingCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, NetworkDelegate {
+   
     //MARK: - Properties
-    // Defines a cancellable object to retrive the state of the network calls
-    private var cancellable: AnyCancellable?
-    
     /// Data Objects
     // To store list of items that we receive from the api
     private var storeItems: [ItemModel] = []
-    private var viewModel: StoreViewModel = StoreViewModel.instance
+    private var viewModel: StoreViewModel = StoreViewModel()
     
     /// UI Elements
     private var loader: LoaderView = LoaderView()
@@ -36,14 +32,20 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         loader = LoaderView(frame: view.frame)
         view.backgroundColor = .white
         
+        viewModel.networkDelegate = self
+        
+        fetchData()
+        
         /// Setting up layouts
         setupCollectionView()
         
-        /// Observing publisher in ViewModel
-        viewModelListener()
-        
         /// Setting up pull to request
         setupPullToRefresh()
+    }
+    
+    // MARK: - SearchBar listener
+    func searchBar(_ searchBar: UISearchBar, textDidChange textSearched: String) {
+        viewModel.searchStore(searchedStore: textSearched)
     }
     
     @objc func refresh(_ sender: AnyObject) {
@@ -92,41 +94,37 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         Task {await viewModel.getStoreDetails()}
     }
     
-    // MARK: ViewModel listener
-    /// Listening the changes in the viewmodel's publisher
-    private func viewModelListener() {
-        cancellable = viewModel.$store.sink {
-            if ($0.isLoading == true) {
-                Task {
-                    if (!self.refreshControl.isRefreshing) {
-                        self.loader.showLoader(view: self.view)
-                    }
-                    self.error.view.removeFromSuperview()
+    func updateChanges(result: DataWrapper<StoreData>) {
+        if (result.isLoading == true) {
+            Task {
+                if (!self.refreshControl.isRefreshing) {
+                    self.loader.showLoader(view: self.view)
                 }
-            } else if ($0.response != nil) {
-                guard let response = $0.response else {return}
-                Task {
-                    self.storeItems = response.items
-                    self.view.addSubview(self.myCollectionView)
-                    
-                    // Reloding the collectionView UI so we get latest results
-                    self.myCollectionView.reloadData()
-                    
-                    // Ending the refresh UI
-                    if (self.refreshControl.isRefreshing) {
-                        self.refreshControl.endRefreshing()
-                    }
+                self.error.view.removeFromSuperview()
+            }
+        } else if (result.response != nil) {
+            guard let response = result.response else {return}
+            Task {
+                self.storeItems = response.items
+                self.view.addSubview(self.myCollectionView)
+                
+                // Reloding the collectionView UI so we get latest results
+                self.myCollectionView.reloadData()
+                
+                // Ending the refresh UI
+                if (self.refreshControl.isRefreshing) {
+                    self.refreshControl.endRefreshing()
                 }
-            } else if ($0.error != nil){
-                guard $0.error != nil else {return}
-                Task {
-                    self.view.addSubview(self.error.view)
-                    self.loader.hideLoader(view: self.view)
-                    self.myCollectionView.removeFromSuperview()
-                    // Ending the refresh UI
-                    if (self.refreshControl.isRefreshing) {
-                        self.refreshControl.endRefreshing()
-                    }
+            }
+        } else if (result.error != nil){
+            guard result.error != nil else {return}
+            Task {
+                self.loader.hideLoader(view: self.view)
+                self.view.addSubview(self.error.view)
+                self.myCollectionView.removeFromSuperview()
+                // Ending the refresh UI
+                if (self.refreshControl.isRefreshing) {
+                    self.refreshControl.endRefreshing()
                 }
             }
         }
