@@ -32,8 +32,10 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         loader = LoaderView(frame: view.frame)
         view.backgroundColor = .white
         
+        /// Setting network delegate
         viewModel.networkDelegate = self
         
+        /// Fetching data from API
         fetchData()
         
         /// Setting up layouts

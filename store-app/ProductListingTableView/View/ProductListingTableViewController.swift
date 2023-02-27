@@ -34,6 +34,7 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         loader = LoaderView(frame: view.frame)
         view.backgroundColor = .white
         
+        /// Setting network delegate
         viewModel.networkDelegate = self
         
         /// Fetching data from Api
