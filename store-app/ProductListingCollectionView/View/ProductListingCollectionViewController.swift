@@ -59,8 +59,9 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
         // Setting section layout
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 32)
+        layout.sectionInset = UIEdgeInsets(top: 39, left: 0, bottom: 0, right: 32)
         layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
         
         // Setting padding and axis values and UI Properties
         myCollectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)

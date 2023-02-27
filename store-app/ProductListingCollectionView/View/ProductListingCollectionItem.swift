@@ -59,7 +59,7 @@ class ProductListingCollectionItem: UICollectionViewCell {
     // MARK: - Constraints for Item Image
     /// Constraints for ItemImage
     private func addImageConstraints() {
-        let imageTop = NSLayoutConstraint(item: itemImage, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 20)
+        let imageTop = NSLayoutConstraint(item: itemImage, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0)
         
         let imageLeading = NSLayoutConstraint(item: itemImage, attribute: .leading, relatedBy: .equal, toItem: contentView, attribute: .leading, multiplier: 1, constant: 32)
         

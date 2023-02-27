@@ -140,6 +140,8 @@ class ProductListingTableViewController: UIViewController , UITableViewDataSourc
         
         myTableView.backgroundColor = .white
         
+        myTableView.contentInset = UIEdgeInsets(top: 19, left: 0, bottom: 0, right: 0)
+        
         myTableView.register(ProductListingTableItem.self, forCellReuseIdentifier:  ProductListingTableItem.identifer)
         myTableView.rowHeight = UITableView.automaticDimension
         self.myTableView.frame = CGRect(x: 0, y: 164, width: self.view.frame.size.width, height: self.view.frame.size.height - 164)
