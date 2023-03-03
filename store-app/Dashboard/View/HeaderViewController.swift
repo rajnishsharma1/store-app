@@ -12,24 +12,82 @@ class HeaderViewController : UIViewController {
     var searchBar: UISearchBar = UISearchBar()
     private var exploreLabel: UILabel = UILabel()
     private var filterLabel: UILabel = UILabel()
+    private var menuButton: UIButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Visual properties of root view
         view.backgroundColor = UIColor(named: Strings.headerBackgroundColor)
         view.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: 164)
-
+        
         // Visual properties of exploreLabel
+        setupFilterLabel()
+        
+        // Visual properties of exploreLabel
+        setupExploreLabel()
+        
+        // Visual properties of searchBar
+        setupSearchBar()
+        
+        setupMenuButton()
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        exploreLabel.translatesAutoresizingMaskIntoConstraints = false
+        filterLabel.translatesAutoresizingMaskIntoConstraints = false
+        menuButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Adding views to subview
+        view.addSubview(searchBar)
+        view.addSubview(exploreLabel)
+        view.addSubview(filterLabel)
+        view.addSubview(menuButton)
+        
+        addExploreLabelConstraint()
+        addMenuConstraint()
+        addFilterLabelConstraint()
+        addSearchBarConstraint()
+    }
+    
+    // MARK: - Filter Label properties
+    /// Filter Label properties
+    private func setupFilterLabel() {
         filterLabel.text = Strings.filer
         filterLabel.font = UIFont.systemFont(ofSize: 16)
         filterLabel.textColor = UIColor(named: Strings.filterTextColor)
         
-        // Visual properties of exploreLabel
+        // Handling clicks
+        filterLabel.isUserInteractionEnabled = true
+        let labelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.onFilterTap))
+        filterLabel.addGestureRecognizer(labelTapGesture)
+    }
+    
+    @objc func onFilterTap() {
+        print("onFilterTap")
+         present(MyPopViewController(), animated: true)
+    }
+    
+    @objc private func onMenuTap() {
+        print("menu")
+    }
+    
+    private func setupMenuButton() {
+        menuButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
+        menuButton.tintColor = .gray
+        menuButton.isUserInteractionEnabled = true
+        menuButton.addTarget(self, action: #selector(onMenuTap), for: .touchDown)
+    }
+    
+    // MARK: - Explore Label properties
+    /// Explore Label properties
+    private func setupExploreLabel() {
         exploreLabel.text = Strings.explore
         exploreLabel.textColor = .black
         exploreLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        
-        // Visual properties of searchBar
+    }
+    
+    // MARK: - Search Bar properties
+    /// Search bar properties
+    private func setupSearchBar() {
         searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0))
         searchBar.searchTextField.backgroundColor = UIColor.clear
         searchBar.layer.cornerRadius = 25
@@ -38,19 +96,6 @@ class HeaderViewController : UIViewController {
         searchBar.backgroundColor = UIColor.white
         searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
         searchBar.setImage(UIImage(), for: .search, state: .normal)
-        
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        exploreLabel.translatesAutoresizingMaskIntoConstraints = false
-        filterLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Adding views to subview
-        view.addSubview(searchBar)
-        view.addSubview(exploreLabel)
-        view.addSubview(filterLabel)
-        
-        addExploreLabelConstraint()
-        addFilterLabelConstraint()
-        addSearchBarConstraint()
     }
     
     // MARK: - Constraints for Explore Label
@@ -58,7 +103,7 @@ class HeaderViewController : UIViewController {
     private func addExploreLabelConstraint() {
         let labelTop = NSLayoutConstraint(item: exploreLabel, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 55)
         
-        let labelLeading = NSLayoutConstraint(item: exploreLabel, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 49)
+        let labelLeading = NSLayoutConstraint(item: exploreLabel, attribute: .leading, relatedBy: .equal, toItem: menuButton, attribute: .leading, multiplier: 1, constant: 30)
         
         view.addConstraints([labelTop, labelLeading])
     }
@@ -85,5 +130,13 @@ class HeaderViewController : UIViewController {
         let searchTrailing = NSLayoutConstraint(item: searchBar, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -34)
         
         view.addConstraints([searchBarTop, searchLeading, searchHeight, searchTrailing])
+    }
+    
+    private func addMenuConstraint() {
+        let menuTop = NSLayoutConstraint(item: menuButton, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 55)
+        
+        let menuLeading = NSLayoutConstraint(item: menuButton, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 49)
+        
+        view.addConstraints([menuTop, menuLeading])
     }
 }

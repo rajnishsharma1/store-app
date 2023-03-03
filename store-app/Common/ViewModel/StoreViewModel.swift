@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class StoreViewModel {
     var networkDelegate: NetworkDelegate!
@@ -76,6 +77,16 @@ class StoreViewModel {
         networkDelegate.updateChanges(result: DataWrapper(error: nil))
 
         searchedString = ""
+    }
+    
+    func updateResponseBySlider(sliderValue: UISlider) {
+        print("number:\(Int(sliderValue.value))")
+        var storeResponse = masterStore.response?.items
+        let newValue = Int(sliderValue.value)
+        sliderValue.setValue(Float(newValue), animated: false)
+        storeResponse = Array((storeResponse?.prefix(upTo: newValue))!)
+        
+        networkDelegate.updateChanges(result: DataWrapper(response: StoreData(items:  storeResponse!)))
     }
 }
 

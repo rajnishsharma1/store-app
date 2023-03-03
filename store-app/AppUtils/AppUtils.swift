@@ -35,3 +35,20 @@ extension UIImageView {
         }.resume()
     }
 }
+
+
+extension UIImage {
+    var getWidth: CGFloat {
+        get {
+            let width = self.size.width
+            return width
+        }
+    }
+    
+    var getHeight: CGFloat {
+        get {
+            let height = self.size.height
+            return height
+        }
+    }
+}
