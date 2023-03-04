@@ -8,11 +8,15 @@
 import Foundation
 import UIKit
 
-class HeaderViewController : UIViewController {
+class HeaderViewController : UIViewController, UIPopoverPresentationControllerDelegate {
+    
+    // UI Elements
     var searchBar: UISearchBar = UISearchBar()
     private var exploreLabel: UILabel = UILabel()
     private var filterLabel: UILabel = UILabel()
     private var menuButton: UIButton = UIButton()
+    
+    private var menuLeadingConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,12 +66,36 @@ class HeaderViewController : UIViewController {
     }
     
     @objc func onFilterTap() {
-        print("onFilterTap")
-         present(MyPopViewController(), animated: true)
+        // Get a reference to the view controller for the popover
+        let popController = MyPopoverViewController()
+
+        // Set the presentation style
+        popController.modalPresentationStyle = .popover
+
+        // Set up the popover presentation controller
+        popController.popoverPresentationController?.permittedArrowDirections = .up
+        popController.popoverPresentationController?.delegate = self
+        popController.popoverPresentationController?.sourceView = filterLabel
+        popController.popoverPresentationController?.sourceRect = filterLabel.bounds
+
+        // present the popover
+        self.present(popController, animated: true, completion: nil)
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
     
     @objc private func onMenuTap() {
-        print("menu")
+        if menuLeadingConstraint.constant == -250 {
+            menuLeadingConstraint.constant = 0
+           }
+           else{
+               menuLeadingConstraint.constant = -250
+           }
+           UIView.animate(withDuration: 0.4) {
+               self.view.layoutIfNeeded()
+           }
     }
     
     private func setupMenuButton() {

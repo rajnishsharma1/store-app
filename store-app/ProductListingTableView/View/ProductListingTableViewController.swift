@@ -14,6 +14,7 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
     /// Data Objects
     // To store list of items that we receive from the api
     private var storeItems: [ItemModel] = []
+    private var masterStoreItems: [ItemModel] = []
     
     private var viewModel: StoreViewModel = StoreViewModel()
     
@@ -22,7 +23,7 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
     private var loader: LoaderView = LoaderView()
     private var error: ErrorViewController = ErrorViewController()
     private let refreshControl: UIRefreshControl = UIRefreshControl()
-    private let slider = UISlider()
+    private let slider: UISlider = UISlider()
     
     var searchDelegate: UISearchBarDelegate!
     
@@ -52,11 +53,19 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
         slider.minimumValue = 0
         slider.maximumValue = listLength
         slider.value = Float(storeItems.count)
+        slider.isContinuous = true
         slider.addTarget(self, action: #selector(sliderValueDidChange), for: .valueChanged)
     }
     
     @objc func sliderValueDidChange(sender: UISlider) {
-        viewModel.updateResponseBySlider(sliderValue: sender)
+        storeItems = masterStoreItems
+        
+        let newValue = Int(sender.value)
+        sender.setValue(Float(newValue), animated: false)
+        
+        storeItems = Array(storeItems.prefix(upTo: newValue))
+        
+        myTableView.reloadData()
     }
     
     // MARK: - Pull to refresh callback
@@ -123,7 +132,9 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
     
     private func setupPostResponseScreen(result: DataWrapper<StoreData>) {
         guard let response = result.response else {return}
+
         Task {
+            self.masterStoreItems = response.items
             self.storeItems = response.items
             self.view.addSubview(self.myTableView)
             self.view.addSubview(self.slider)
@@ -131,13 +142,9 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
             self.addTableViewConstraints()
             self.addSliderConstraint()
             setupSlider(listLength: Float(storeItems.count))
-            self.slider.value = Float(response.items.count)
             
             // Reloding the collectionView UI so we get latest results
             self.myTableView.reloadData()
-            print("New value \(response.items.count)")
-          
-            
             // Ending the refresh UI
             if (self.refreshControl.isRefreshing) {
                 self.refreshControl.endRefreshing()
@@ -170,11 +177,10 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
         
         myTableView.backgroundColor = .white
         
-        myTableView.contentInset = UIEdgeInsets(top: 19, left: 0, bottom: 0, right: 0)
+        myTableView.contentInset = UIEdgeInsets(top: 39, left: 0, bottom: 0, right: 0)
         
         myTableView.register(ProductListingTableItem.self, forCellReuseIdentifier:  ProductListingTableItem.identifer)
         myTableView.rowHeight = UITableView.automaticDimension
-        self.myTableView.frame = CGRect(x: 0, y: 164, width: self.view.frame.size.width, height: self.view.frame.size.height - 164)
 
         myTableView.dataSource = self
         myTableView.delegate = self

@@ -14,12 +14,15 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     /// Data Objects
     // To store list of items that we receive from the api
     private var storeItems: [ItemModel] = []
+    private var masterStoreItems: [ItemModel] = []
+    
     private var viewModel: StoreViewModel = StoreViewModel()
     
     /// UI Elements
     private var loader: LoaderView = LoaderView()
     private var error: ErrorViewController = ErrorViewController()
     private var myCollectionView: UICollectionView!
+    private let slider: UISlider = UISlider()
     
     private let refreshControl: UIRefreshControl = UIRefreshControl()
     
@@ -45,6 +48,25 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         setupPullToRefresh()
     }
     
+    private func setupSlider() {
+        slider.minimumValue = 0
+        slider.maximumValue = Float(storeItems.count)
+        slider.value = Float(storeItems.count)
+        slider.isContinuous = true
+        slider.addTarget(self, action: #selector(sliderValueDidChange), for: .valueChanged)
+    }
+    
+    @objc func sliderValueDidChange(sender: UISlider) {
+        storeItems = masterStoreItems
+        
+        let newValue = Int(sender.value)
+        sender.setValue(Float(newValue), animated: false)
+        
+        storeItems = Array(storeItems.prefix(upTo: newValue))
+        
+        myCollectionView.reloadData()
+    }
+    
     // MARK: - SearchBar listener
     func searchBar(_ searchBar: UISearchBar, textDidChange textSearched: String) {
         viewModel.searchStore(searchedStore: textSearched)
@@ -52,6 +74,28 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     
     @objc func refresh(_ sender: AnyObject) {
        fetchData()
+    }
+    
+    // Add Constraints for the TableView
+    func addCollectionViewConstraints() {
+        myCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let collectionTop = NSLayoutConstraint(item: myCollectionView!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 150)
+        let collectionWidth = NSLayoutConstraint(item: myCollectionView!, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0)
+        
+        self.view.addConstraints([collectionTop, collectionWidth])
+    }
+    
+    // Add Constraints for the Slider
+    func addSliderConstraint() {
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        
+        let sliderTop = NSLayoutConstraint(item: slider, attribute: .top, relatedBy: .equal, toItem: myCollectionView, attribute: .bottom, multiplier: 1, constant: 10)
+        let sliderBottom = NSLayoutConstraint(item: slider, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -100)
+        let sliderLeading = NSLayoutConstraint(item: slider, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 20)
+        let sliderTrailing = NSLayoutConstraint(item: slider, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -20)
+        
+        self.view.addConstraints([sliderTop, sliderBottom, sliderLeading, sliderTrailing])
     }
     
     // MARK: - CollectionView customizations
@@ -108,8 +152,14 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         } else if (result.response != nil) {
             guard let response = result.response else {return}
             Task {
+                self.masterStoreItems = response.items
                 self.storeItems = response.items
                 self.view.addSubview(self.myCollectionView)
+                self.view.addSubview(self.slider)
+                
+                self.setupSlider()
+                self.addCollectionViewConstraints()
+                self.addSliderConstraint()
                 
                 // Reloding the collectionView UI so we get latest results
                 self.myCollectionView.reloadData()
