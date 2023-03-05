@@ -16,9 +16,9 @@ class MyPopoverViewController: UIViewController {
         super.viewDidLoad()
         // Setting background color as white
         view.backgroundColor = .white
-        
+        self.preferredContentSize = CGSize(width: 200, height: 200)
         // UI Properties of popover label
-        popoverLabel.text = "Welcome to Popover"
+        popoverLabel.text = "Filter Popover"
         popoverLabel.textAlignment = .center
         
         popoverLabel.translatesAutoresizingMaskIntoConstraints = false

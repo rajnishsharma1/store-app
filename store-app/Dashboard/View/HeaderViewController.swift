@@ -10,12 +10,15 @@ import UIKit
 
 class HeaderViewController : UIViewController, UIPopoverPresentationControllerDelegate {
     
-    // UI Elements
+    //MARK: - UI Elements
+    /// UI Elements
     var searchBar: UISearchBar = UISearchBar()
     private var exploreLabel: UILabel = UILabel()
     private var filterLabel: UILabel = UILabel()
     private var menuButton: UIButton = UIButton()
     
+    // MARK: - Lifecycle
+    /// ViewDidLoad Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Visual properties of root view
@@ -63,6 +66,8 @@ class HeaderViewController : UIViewController, UIPopoverPresentationControllerDe
         filterLabel.addGestureRecognizer(labelTapGesture)
     }
     
+    // MARK: - Filter tap
+    /// Filter tap listener
     @objc func onFilterTap() {
         // Get a reference to the view controller for the popover
         let popController = MyPopoverViewController()
