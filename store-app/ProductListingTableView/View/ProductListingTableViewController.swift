@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ProductListingTableViewController: UIViewController , NetworkDelegate {
+class ProductListingTableViewController: UIViewController, NetworkDelegate {
     
     //MARK: - Properties
     /// Data Objects

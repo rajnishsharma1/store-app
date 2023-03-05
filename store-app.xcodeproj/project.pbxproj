@@ -23,7 +23,21 @@
 		D649636829A26437005DEAAF /* CoreDataTestStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649636629A26437005DEAAF /* CoreDataTestStack.swift */; };
 		D649636929A266A3005DEAAF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649635D29A20D31005DEAAF /* CoreDataStack.swift */; };
 		D65ACBA029B357AB002B907C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65ACB9F29B357AB002B907C /* MenuViewController.swift */; };
-		D65ACBC329B4D981002B907C /* ProductListingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664724299D1184004B1A76 /* ProductListingTableViewController.swift */; };
+		D661680F29B4F1570037050B /* ProductListingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664724299D1184004B1A76 /* ProductListingTableViewController.swift */; };
+		D661681029B4F1830037050B /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D666472C299D1CE2004B1A76 /* ErrorViewController.swift */; };
+		D661681129B4F18A0037050B /* DataWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664711299BB125004B1A76 /* DataWrapper.swift */; };
+		D661681229B4F1920037050B /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D666472A299D17E4004B1A76 /* LoaderView.swift */; };
+		D661681329B4F1980037050B /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664714299BB2CE004B1A76 /* StoreViewModel.swift */; };
+		D661681429B4F19E0037050B /* NetworkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68303D229AC7AD500FF1B0B /* NetworkDelegate.swift */; };
+		D661681529B4F1A50037050B /* StoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DEA7299F797600F2F4E9 /* StoreRepository.swift */; };
+		D661681629B4F1AB0037050B /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664705299B8973004B1A76 /* ApiService.swift */; };
+		D661681729B4F1B00037050B /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66646FE299B5EAB004B1A76 /* StoreModel.swift */; };
+		D661681829B4F1B60037050B /* NetowrkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D666470D299BA473004B1A76 /* NetowrkClient.swift */; };
+		D661681929B4F1BD0037050B /* Urls.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664701299B88E4004B1A76 /* Urls.swift */; };
+		D661681A29B4F1C80037050B /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DE08299E96EA00F2F4E9 /* Strings.swift */; };
+		D661681B29B4F1CF0037050B /* ProductListingTableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D666472E299D3487004B1A76 /* ProductListingTableItem.swift */; };
+		D661681C29B4F2110037050B /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664735299E058E004B1A76 /* AppUtils.swift */; };
+		D661681D29B4F2270037050B /* ItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D2027429B0D70D0047CA82 /* ItemDetailsViewController.swift */; };
 		D666468A299A5DD0004B1A76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664689299A5DD0004B1A76 /* AppDelegate.swift */; };
 		D666468C299A5DD0004B1A76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D666468B299A5DD0004B1A76 /* SceneDelegate.swift */; };
 		D6664693299A5DD1004B1A76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6664692299A5DD1004B1A76 /* Assets.xcassets */; };
@@ -573,18 +587,32 @@
 			buildActionMask = 2147483647;
 			files = (
 				D649634E29A0BD22005DEAAF /* ItemModel.swift in Sources */,
-				D65ACBC329B4D981002B907C /* ProductListingTableViewController.swift in Sources */,
+				D661681929B4F1BD0037050B /* Urls.swift in Sources */,
+				D661681D29B4F2270037050B /* ItemDetailsViewController.swift in Sources */,
+				D661680F29B4F1570037050B /* ProductListingTableViewController.swift in Sources */,
+				D661681C29B4F2110037050B /* AppUtils.swift in Sources */,
 				D649634C29A0BAA1005DEAAF /* CoreDataHelper.swift in Sources */,
+				D661681B29B4F1CF0037050B /* ProductListingTableItem.swift in Sources */,
+				D661681429B4F19E0037050B /* NetworkDelegate.swift in Sources */,
 				D649635529A14890005DEAAF /* StoreCodeDataModel.xcdatamodeld in Sources */,
+				D661681329B4F1980037050B /* StoreViewModel.swift in Sources */,
+				D661681629B4F1AB0037050B /* ApiService.swift in Sources */,
 				D649636929A266A3005DEAAF /* CoreDataStack.swift in Sources */,
 				D649634D29A0BD02005DEAAF /* StoreData.swift in Sources */,
+				D661681A29B4F1C80037050B /* Strings.swift in Sources */,
 				D649636829A26437005DEAAF /* CoreDataTestStack.swift in Sources */,
+				D661681029B4F1830037050B /* ErrorViewController.swift in Sources */,
+				D661681729B4F1B00037050B /* StoreModel.swift in Sources */,
 				D649634A29A0B8E8005DEAAF /* store_coreDataTests.swift in Sources */,
 				D649636529A21999005DEAAF /* StoreDataItem+CoreDataProperties.swift in Sources */,
+				D661681129B4F18A0037050B /* DataWrapper.swift in Sources */,
 				D649636329A21999005DEAAF /* StoreDataItem+CoreDataClass.swift in Sources */,
 				D649635029A0BDD1005DEAAF /* AppDelegate.swift in Sources */,
+				D661681229B4F1920037050B /* LoaderView.swift in Sources */,
 				D66646A1299A5DD2004B1A76 /* store_appTests.swift in Sources */,
 				D649634F29A0BDBE005DEAAF /* Constants.swift in Sources */,
+				D661681529B4F1A50037050B /* StoreRepository.swift in Sources */,
+				D661681829B4F1B60037050B /* NetowrkClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
