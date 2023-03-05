@@ -8,9 +8,12 @@
 import UIKit
 
 class ItemDetailsViewController: UIViewController {
+    
+    // MARK: - Properties
     var itemDetails: ItemModel?
     var isDismisable: Bool = false
     
+    // MARK: - Constructor
     init(itemDetails: ItemModel?, isDismissable: Bool = false) {
         self.itemDetails = itemDetails
         self.isDismisable = isDismissable
@@ -21,12 +24,14 @@ class ItemDetailsViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
+    // MARK: - UI Elements
     private let itemImage: UIImageView = UIImageView()
     private let itemName: UILabel = UILabel()
     private let itemPrice: UILabel = UILabel()
     private let extra: UILabel = UILabel()
     private let cancelButton: UIImageView = UIImageView()
     
+    // MARK: - Image Aspect Ratio
     private var imageAspectRatio: CGFloat = 0.0
     
     override func viewDidAppear(_ animated: Bool) {

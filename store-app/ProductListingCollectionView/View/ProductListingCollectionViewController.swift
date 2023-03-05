@@ -10,19 +10,23 @@ import UIKit
 
 class ProductListingCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, NetworkDelegate {
    
-    //MARK: - Properties
+    // MARK: - Properties
     /// Data Objects
     // To store list of items that we receive from the api
     private var storeItems: [ItemModel] = []
     private var masterStoreItems: [ItemModel] = []
     
+    // MARK: - ViewModel
+    /// Viewmodel
     private var viewModel: StoreViewModel = StoreViewModel()
     
+    // MARK: - UI Elements
     /// UI Elements
     private var loader: LoaderView = LoaderView()
     private var error: ErrorViewController = ErrorViewController()
     private var myCollectionView: UICollectionView!
     private let slider: UISlider = UISlider()
+    private let sliderLabel: UILabel = UILabel()
     
     private let refreshControl: UIRefreshControl = UIRefreshControl()
     
@@ -48,23 +52,33 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         setupPullToRefresh()
     }
     
+    // MARK: - Setup Slider
+    /// Setup Slider
     private func setupSlider() {
         slider.minimumValue = 0
         slider.maximumValue = Float(storeItems.count)
         slider.value = Float(storeItems.count)
         slider.isContinuous = true
         slider.addTarget(self, action: #selector(sliderValueDidChange), for: .valueChanged)
+        
+        sliderLabel.text = String(storeItems.count)
+        sliderLabel.textColor = .black
     }
     
+    // MARK: - Slide value change listener
     @objc func sliderValueDidChange(sender: UISlider) {
         storeItems = masterStoreItems
         
-        let newValue = Int(sender.value)
-        sender.setValue(Float(newValue), animated: false)
+        setSliderValue(value: sender.value)
         
-        storeItems = Array(storeItems.prefix(upTo: newValue))
+        storeItems = Array(storeItems.prefix(upTo: Int(sender.value)))
         
         myCollectionView.reloadData()
+    }
+    
+    private func setSliderValue(value: Float) {
+        slider.setValue(value, animated: false)
+        sliderLabel.text = String(Int(value))
     }
     
     // MARK: - SearchBar listener
@@ -72,20 +86,24 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         viewModel.searchStore(searchedStore: textSearched)
     }
     
+    // MARK: - Pull to refresh callback
+    /// Pull to refresh callback listener
     @objc func refresh(_ sender: AnyObject) {
        fetchData()
     }
     
+    // MARK: - Constraints for TableView
     // Add Constraints for the TableView
     func addCollectionViewConstraints() {
         myCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
-        let collectionTop = NSLayoutConstraint(item: myCollectionView!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 150)
+        let collectionTop = NSLayoutConstraint(item: myCollectionView!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 164)
         let collectionWidth = NSLayoutConstraint(item: myCollectionView!, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 1, constant: 0)
         
         self.view.addConstraints([collectionTop, collectionWidth])
     }
     
+    // MARK: - Constraints for Slider
     // Add Constraints for the Slider
     func addSliderConstraint() {
         slider.translatesAutoresizingMaskIntoConstraints = false
@@ -93,12 +111,25 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         let sliderTop = NSLayoutConstraint(item: slider, attribute: .top, relatedBy: .equal, toItem: myCollectionView, attribute: .bottom, multiplier: 1, constant: 10)
         let sliderBottom = NSLayoutConstraint(item: slider, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -100)
         let sliderLeading = NSLayoutConstraint(item: slider, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 20)
-        let sliderTrailing = NSLayoutConstraint(item: slider, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -20)
         
-        self.view.addConstraints([sliderTop, sliderBottom, sliderLeading, sliderTrailing])
+        self.view.addConstraints([sliderTop, sliderBottom, sliderLeading])
     }
     
-    // MARK: - CollectionView customizations
+    // MARK: - Constraints for SliderLabel
+    // Add Constraints for the SliderLabel
+     func addSliderLabelConstraint() {
+         sliderLabel.translatesAutoresizingMaskIntoConstraints = false
+         
+         let sliderLabelTop = NSLayoutConstraint(item: sliderLabel, attribute: .top, relatedBy: .equal, toItem: myCollectionView, attribute: .bottom, multiplier: 1, constant: 10)
+         let sliderLabelBottom = NSLayoutConstraint(item: sliderLabel, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -100)
+         let sliderLabelLeading = NSLayoutConstraint(item: sliderLabel, attribute: .leading, relatedBy: .equal, toItem: slider, attribute: .trailing, multiplier: 1, constant: 20)
+         let sliderLabelTrailing = NSLayoutConstraint(item: sliderLabel, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -20)
+         
+         self.view.addConstraints([sliderLabelTop, sliderLabelBottom, sliderLabelLeading, sliderLabelTrailing])
+     }
+    
+    // MARK: - CollectionView setup
+    /// CollectionView setup
     private func setupCollectionView() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
@@ -143,42 +174,73 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     
     func updateChanges(result: DataWrapper<StoreData>) {
         if (result.isLoading == true) {
-            Task {
-                if (!self.refreshControl.isRefreshing) {
-                    self.loader.showLoader(view: self.view)
-                }
-                self.error.view.removeFromSuperview()
-            }
+            setupLoader()
         } else if (result.response != nil) {
-            guard let response = result.response else {return}
-            Task {
-                self.masterStoreItems = response.items
-                self.storeItems = response.items
-                self.view.addSubview(self.myCollectionView)
-                self.view.addSubview(self.slider)
-                
-                self.setupSlider()
-                self.addCollectionViewConstraints()
-                self.addSliderConstraint()
-                
-                // Reloding the collectionView UI so we get latest results
-                self.myCollectionView.reloadData()
-                
-                // Ending the refresh UI
-                if (self.refreshControl.isRefreshing) {
-                    self.refreshControl.endRefreshing()
-                }
-            }
+            setupPostResponseScreen(result: result)
         } else if (result.error != nil){
-            guard result.error != nil else {return}
-            Task {
-                self.loader.hideLoader(view: self.view)
-                self.view.addSubview(self.error.view)
-                self.myCollectionView.removeFromSuperview()
-                // Ending the refresh UI
-                if (self.refreshControl.isRefreshing) {
-                    self.refreshControl.endRefreshing()
-                }
+            setupErrorScreen(result: result)
+        }
+    }
+    
+    // MARK: - Setup Loader
+    /// Setting up loader
+    ///
+    /// This will happen when API Call is happening
+    private func setupLoader() {
+        Task {
+            if (!self.refreshControl.isRefreshing) {
+                self.loader.showLoader(view: self.view)
+            }
+            self.error.view.removeFromSuperview()
+        }
+    }
+    
+    // MARK: - Error Setup
+    /// Error Setup
+    ///
+    /// This will happen when API call is failure and
+    /// viewModel has some error to feed to view
+    private func setupErrorScreen(result: DataWrapper<StoreData>) {
+        guard result.error != nil else {return}
+        Task {
+            self.loader.hideLoader(view: self.view)
+            self.view.addSubview(self.error.view)
+            self.myCollectionView.removeFromSuperview()
+            
+            setSliderValue(value: 0)
+            
+            // Ending the refresh UI
+            if (self.refreshControl.isRefreshing) {
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
+    
+    // MARK: - Post response setup
+    /// Post response
+    ///
+    /// This will happen when API call is successful and
+    /// viewModel has some data to feed to view
+    private func setupPostResponseScreen(result: DataWrapper<StoreData>) {
+        guard let response = result.response else {return}
+        Task {
+            self.masterStoreItems = response.items
+            self.storeItems = response.items
+            self.view.addSubview(self.myCollectionView)
+            self.view.addSubview(self.slider)
+            self.view.addSubview(self.sliderLabel)
+            
+            self.setupSlider()
+            self.addCollectionViewConstraints()
+            self.addSliderConstraint()
+            self.addSliderLabelConstraint()
+            
+            // Reloding the collectionView UI so we get latest results
+            self.myCollectionView.reloadData()
+            
+            // Ending the refresh UI
+            if (self.refreshControl.isRefreshing) {
+                self.refreshControl.endRefreshing()
             }
         }
     }

@@ -18,12 +18,13 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
     
     private var viewModel: StoreViewModel = StoreViewModel()
     
-    /// UI Elements
+    //MARK: - UI Elements
     private var myTableView: UITableView!
     private var loader: LoaderView = LoaderView()
     private var error: ErrorViewController = ErrorViewController()
     private let refreshControl: UIRefreshControl = UIRefreshControl()
     private let slider: UISlider = UISlider()
+    private let sliderLabel: UILabel = UILabel()
     
     var searchDelegate: UISearchBarDelegate!
     
@@ -49,30 +50,45 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
         setupPullToRefresh()
     }
     
-    private func setupSlider(listLength: Float) {
-        slider.minimumValue = 0
-        slider.maximumValue = listLength
-        slider.value = Float(storeItems.count)
+    // MARK: - Setup Slider
+    /// Setup Slider
+    private func setupSlider() {
+        let maxValue = storeItems.count
+        let minValue: Float = 0
+        
+        slider.minimumValue = minValue
+        slider.maximumValue = Float(maxValue)
+        slider.value = Float(maxValue)
         slider.isContinuous = true
         slider.addTarget(self, action: #selector(sliderValueDidChange), for: .valueChanged)
+        
+        sliderLabel.text = String(storeItems.count)
+        sliderLabel.textColor = .black
     }
     
+    // MARK: - Slide value change listener
     @objc func sliderValueDidChange(sender: UISlider) {
         storeItems = masterStoreItems
         
-        let newValue = Int(sender.value)
-        sender.setValue(Float(newValue), animated: false)
+        setSliderValue(value: sender.value)
         
-        storeItems = Array(storeItems.prefix(upTo: newValue))
+        storeItems = Array(storeItems.prefix(upTo: Int(sender.value)))
         
         myTableView.reloadData()
     }
     
+    private func setSliderValue(value: Float) {
+        slider.setValue(value, animated: false)
+        sliderLabel.text = String(Int(value))
+    }
+    
     // MARK: - Pull to refresh callback
+    /// Pull to refresh callback listener
     @objc func refresh(_ sender: AnyObject) {
        fetchData()
     }
     
+    // MARK: - Constraints for Slider
     // Add Constraints for the Slider
      func addSliderConstraint() {
          slider.translatesAutoresizingMaskIntoConstraints = false
@@ -80,11 +96,24 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
          let sliderTop = NSLayoutConstraint(item: slider, attribute: .top, relatedBy: .equal, toItem: myTableView, attribute: .bottom, multiplier: 1, constant: 10)
          let sliderBottom = NSLayoutConstraint(item: slider, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -100)
          let sliderLeading = NSLayoutConstraint(item: slider, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 20)
-         let sliderTrailing = NSLayoutConstraint(item: slider, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -20)
          
-         self.view.addConstraints([sliderTop, sliderBottom, sliderLeading, sliderTrailing])
+         self.view.addConstraints([sliderTop, sliderBottom, sliderLeading])
      }
     
+    // MARK: - Constraints for SliderLabel
+    // Add Constraints for the SliderLabel
+     func addSliderLabelConstraint() {
+         sliderLabel.translatesAutoresizingMaskIntoConstraints = false
+         
+         let sliderLabelTop = NSLayoutConstraint(item: sliderLabel, attribute: .top, relatedBy: .equal, toItem: myTableView, attribute: .bottom, multiplier: 1, constant: 10)
+         let sliderLabelBottom = NSLayoutConstraint(item: sliderLabel, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -100)
+         let sliderLabelLeading = NSLayoutConstraint(item: sliderLabel, attribute: .leading, relatedBy: .equal, toItem: slider, attribute: .trailing, multiplier: 1, constant: 20)
+         let sliderLabelTrailing = NSLayoutConstraint(item: sliderLabel, attribute: .trailing, relatedBy: .equal, toItem: view, attribute: .trailing, multiplier: 1, constant: -20)
+         
+         self.view.addConstraints([sliderLabelTop, sliderLabelBottom, sliderLabelLeading, sliderLabelTrailing])
+     }
+    
+    // MARK: - Constraints for the TableView
     // Add Constraints for the TableView
     func addTableViewConstraints() {
         myTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -95,7 +124,7 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
         self.view.addConstraints([tableTop, tableWidth])
     }
     
-    // MARK: Pull To Refresh
+    // MARK: Pull To Refresh Setup
     /// Pull to request setup
     private func setupPullToRefresh() {
         refreshControl.attributedTitle = NSAttributedString(string: "")
@@ -111,6 +140,8 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
         }
     }
     
+    // MARK: - Update changes
+    /// Update changes for ViewModel
     func updateChanges(result: DataWrapper<StoreData>) {
         if (result.isLoading == true) {
             setupLoader()
@@ -121,6 +152,10 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
         }
     }
     
+    // MARK: - Setup Loader
+    /// Setting up loader
+    ///
+    /// This will happen when API Call is happening
     private func setupLoader() {
         Task {
             if (!self.refreshControl.isRefreshing) {
@@ -130,6 +165,11 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
         }
     }
     
+    // MARK: - Post response setup
+    /// Post response
+    ///
+    /// This will happen when API call is successful and
+    /// viewModel has some data to feed to view
     private func setupPostResponseScreen(result: DataWrapper<StoreData>) {
         guard let response = result.response else {return}
 
@@ -138,10 +178,12 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
             self.storeItems = response.items
             self.view.addSubview(self.myTableView)
             self.view.addSubview(self.slider)
+            self.view.addSubview(self.sliderLabel)
             
             self.addTableViewConstraints()
             self.addSliderConstraint()
-            setupSlider(listLength: Float(storeItems.count))
+            self.addSliderLabelConstraint()
+            self.setupSlider()
             
             // Reloding the collectionView UI so we get latest results
             self.myTableView.reloadData()
@@ -152,12 +194,20 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
         }
     }
     
+    // MARK: - Error Setup
+    /// Error Setup
+    ///
+    /// This will happen when API call is failure and
+    /// viewModel has some error to feed to view
     private func setupErrorScreen(result: DataWrapper<StoreData>) {
         guard result.error != nil else {return}
         Task {
             self.loader.hideLoader(view: self.view)
             self.view.addSubview(self.error.view)
             self.myTableView.removeFromSuperview()
+            
+            setSliderValue(value: 0)
+            
             // Ending the refresh UI
             if (self.refreshControl.isRefreshing) {
                 self.refreshControl.endRefreshing()
@@ -188,6 +238,11 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
 }
 
 extension ProductListingTableViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    // MARK: - UITableView Item Click Handler
+    /// UITableView - Item click handler
+    ///
+    /// It will take user to the appropriate screen with cell data
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let productDetailsVC = ItemDetailsViewController(itemDetails: storeItems[indexPath.item]) as UIViewController
         self.navigationController?.pushViewController(productDetailsVC, animated: true)

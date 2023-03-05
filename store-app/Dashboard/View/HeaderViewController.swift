@@ -16,8 +16,6 @@ class HeaderViewController : UIViewController, UIPopoverPresentationControllerDe
     private var filterLabel: UILabel = UILabel()
     private var menuButton: UIButton = UIButton()
     
-    private var menuLeadingConstraint: NSLayoutConstraint!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Visual properties of root view
@@ -87,15 +85,7 @@ class HeaderViewController : UIViewController, UIPopoverPresentationControllerDe
     }
     
     @objc private func onMenuTap() {
-        if menuLeadingConstraint.constant == -250 {
-            menuLeadingConstraint.constant = 0
-           }
-           else{
-               menuLeadingConstraint.constant = -250
-           }
-           UIView.animate(withDuration: 0.4) {
-               self.view.layoutIfNeeded()
-           }
+        
     }
     
     private func setupMenuButton() {

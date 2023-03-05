@@ -79,7 +79,7 @@ final class store_appUITests: XCTestCase {
         // Launch the app
         app.launch()
         
-        let filterLabel = app.staticTexts.element(matching: .any, identifier: "Filter")
+        let filterLabel = app.buttons["Filter"]
         XCTAssertTrue(filterLabel.exists)
     }
     
