@@ -94,7 +94,7 @@ class HeaderViewController : UIViewController, UIPopoverPresentationControllerDe
     }
     
     private func setupMenuButton() {
-        menuButton.setImage(UIImage(systemName: "list.bullet"), for: .normal)
+        menuButton.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
         menuButton.tintColor = .gray
         menuButton.isUserInteractionEnabled = true
         menuButton.addTarget(self, action: #selector(onMenuTap), for: .touchDown)

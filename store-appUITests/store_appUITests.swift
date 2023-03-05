@@ -74,6 +74,31 @@ final class store_appUITests: XCTestCase {
         XCTAssertEqual(tabBar.buttons.count, expectedNumberOfTabButtons)
     }
     
+    func test_popover_is_visible() {
+        let app = XCUIApplication()
+        // Launch the app
+        app.launch()
+        
+        
+        let filterButton = XCUIApplication().buttons["Filter"]
+        filterButton.tap()
+
+        let popoverdismissregionElement = app/*@START_MENU_TOKEN@*/.otherElements["PopoverDismissRegion"]/*[[".otherElements[\"dismiss popup\"]",".otherElements[\"PopoverDismissRegion\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+                                    
+        XCTAssertTrue(popoverdismissregionElement.exists)
+    }
+    
+    func test_popover_is_hidden() {
+        let app = XCUIApplication()
+        // Launch the app
+        app.launch()
+
+        let popoverdismissregionElement = app/*@START_MENU_TOKEN@*/.otherElements["PopoverDismissRegion"]/*[[".otherElements[\"dismiss popup\"]",".otherElements[\"PopoverDismissRegion\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+      
+                                    
+        XCTAssertFalse(popoverdismissregionElement.exists)
+    }
+    
     func test_filter_label_existence() {
         let app = XCUIApplication()
         // Launch the app
