@@ -76,6 +76,8 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         myCollectionView.reloadData()
     }
     
+    // MARK: - Set Slider Value
+    /// Setting slider value
     private func setSliderValue(value: Float) {
         slider.setValue(value, animated: false)
         sliderLabel.text = String(Int(value))
@@ -94,7 +96,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     
     // MARK: - Constraints for TableView
     // Add Constraints for the TableView
-    func addCollectionViewConstraints() {
+    private func addCollectionViewConstraints() {
         myCollectionView.translatesAutoresizingMaskIntoConstraints = false
         
         let collectionTop = NSLayoutConstraint(item: myCollectionView!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 164)
@@ -105,7 +107,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     
     // MARK: - Constraints for Slider
     // Add Constraints for the Slider
-    func addSliderConstraint() {
+    private func addSliderConstraint() {
         slider.translatesAutoresizingMaskIntoConstraints = false
         
         let sliderTop = NSLayoutConstraint(item: slider, attribute: .top, relatedBy: .equal, toItem: myCollectionView, attribute: .bottom, multiplier: 1, constant: 10)
@@ -117,7 +119,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     
     // MARK: - Constraints for SliderLabel
     // Add Constraints for the SliderLabel
-     func addSliderLabelConstraint() {
+    private func addSliderLabelConstraint() {
          sliderLabel.translatesAutoresizingMaskIntoConstraints = false
          
          let sliderLabelTop = NSLayoutConstraint(item: sliderLabel, attribute: .top, relatedBy: .equal, toItem: myCollectionView, attribute: .bottom, multiplier: 1, constant: 10)

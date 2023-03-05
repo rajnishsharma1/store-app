@@ -77,6 +77,8 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
         myTableView.reloadData()
     }
     
+    // MARK: - Set Slider Value
+    /// Setting slider value
     private func setSliderValue(value: Float) {
         slider.setValue(value, animated: false)
         sliderLabel.text = String(Int(value))
@@ -90,7 +92,7 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
     
     // MARK: - Constraints for Slider
     // Add Constraints for the Slider
-     func addSliderConstraint() {
+    private func addSliderConstraint() {
          slider.translatesAutoresizingMaskIntoConstraints = false
          
          let sliderTop = NSLayoutConstraint(item: slider, attribute: .top, relatedBy: .equal, toItem: myTableView, attribute: .bottom, multiplier: 1, constant: 10)
@@ -102,7 +104,7 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
     
     // MARK: - Constraints for SliderLabel
     // Add Constraints for the SliderLabel
-     func addSliderLabelConstraint() {
+    private func addSliderLabelConstraint() {
          sliderLabel.translatesAutoresizingMaskIntoConstraints = false
          
          let sliderLabelTop = NSLayoutConstraint(item: sliderLabel, attribute: .top, relatedBy: .equal, toItem: myTableView, attribute: .bottom, multiplier: 1, constant: 10)
@@ -115,7 +117,7 @@ class ProductListingTableViewController: UIViewController , NetworkDelegate {
     
     // MARK: - Constraints for the TableView
     // Add Constraints for the TableView
-    func addTableViewConstraints() {
+    private func addTableViewConstraints() {
         myTableView.translatesAutoresizingMaskIntoConstraints = false
         
         let tableTop = NSLayoutConstraint(item: myTableView!, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 150)

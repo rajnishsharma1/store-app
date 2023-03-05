@@ -85,14 +85,18 @@ class HeaderViewController : UIViewController, UIPopoverPresentationControllerDe
         self.present(popController, animated: true, completion: nil)
     }
     
+    // MARK: - Popover Presentation style
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
     }
     
+    // MARK: - Menu tap handler
     @objc private func onMenuTap() {
         
     }
     
+    // MARK: - Setup menu button
+    /// Setup menu button
     private func setupMenuButton() {
         menuButton.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
         menuButton.tintColor = .gray
@@ -155,6 +159,8 @@ class HeaderViewController : UIViewController, UIPopoverPresentationControllerDe
         view.addConstraints([searchBarTop, searchLeading, searchHeight, searchTrailing])
     }
     
+    // MARK: - Menu constraint
+    /// Constraints for Manu button
     private func addMenuConstraint() {
         let menuTop = NSLayoutConstraint(item: menuButton, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 55)
         

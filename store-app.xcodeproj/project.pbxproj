@@ -23,6 +23,7 @@
 		D649636829A26437005DEAAF /* CoreDataTestStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649636629A26437005DEAAF /* CoreDataTestStack.swift */; };
 		D649636929A266A3005DEAAF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = D649635D29A20D31005DEAAF /* CoreDataStack.swift */; };
 		D65ACBA029B357AB002B907C /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65ACB9F29B357AB002B907C /* MenuViewController.swift */; };
+		D65ACBC329B4D981002B907C /* ProductListingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664724299D1184004B1A76 /* ProductListingTableViewController.swift */; };
 		D666468A299A5DD0004B1A76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664689299A5DD0004B1A76 /* AppDelegate.swift */; };
 		D666468C299A5DD0004B1A76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D666468B299A5DD0004B1A76 /* SceneDelegate.swift */; };
 		D6664693299A5DD1004B1A76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6664692299A5DD1004B1A76 /* Assets.xcassets */; };
@@ -572,6 +573,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D649634E29A0BD22005DEAAF /* ItemModel.swift in Sources */,
+				D65ACBC329B4D981002B907C /* ProductListingTableViewController.swift in Sources */,
 				D649634C29A0BAA1005DEAAF /* CoreDataHelper.swift in Sources */,
 				D649635529A14890005DEAAF /* StoreCodeDataModel.xcdatamodeld in Sources */,
 				D649636929A266A3005DEAAF /* CoreDataStack.swift in Sources */,

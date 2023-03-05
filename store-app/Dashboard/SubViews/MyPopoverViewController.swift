@@ -10,7 +10,7 @@ import UIKit
 class MyPopoverViewController: UIViewController {
 
     // UIElements
-    let popoverLabel: UILabel = UILabel()
+    private let popoverLabel: UILabel = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ class MyPopoverViewController: UIViewController {
         setupPopoverLabelConstraints()
     }
     
-    func setupPopoverLabelConstraints() {
+    private func setupPopoverLabelConstraints() {
         let labelTop = NSLayoutConstraint(item: popoverLabel, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 0)
         
         let labelLeading = NSLayoutConstraint(item: popoverLabel, attribute: .leading, relatedBy: .equal, toItem: view, attribute: .leading, multiplier: 1, constant: 0)

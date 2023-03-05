@@ -15,7 +15,7 @@ protocol PageViewControllerDelegate: AnyObject {
 
 class PageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     
-    weak var swipeDelegate: PageViewControllerDelegate?
+    var swipeDelegate: PageViewControllerDelegate?
     
     var pages = [UIViewController]()
     
