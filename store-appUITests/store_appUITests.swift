@@ -88,10 +88,27 @@ final class store_appUITests: XCTestCase {
         XCTAssertTrue(popoverdismissregionElement.exists)
     }
     
+    func test_coming_soon_visibility() {
+        let app = XCUIApplication()
+        // Launch the app
+        app.launch()
+        
+        let tabBar = app.tabBars["Tab Bar"]
+        tabBar.children(matching: .button).element(boundBy: 1).tap()
+        tabBar.children(matching: .button).element(boundBy: 2).tap()
+        
+        let elementsQuery = app.scrollViews.otherElements
+        let comingSoonStaticText = elementsQuery.staticTexts["Coming soon..."]
+        
+        XCTAssertTrue(comingSoonStaticText.exists)
+    }
+    
     func test_popover_is_hidden() {
         let app = XCUIApplication()
         // Launch the app
         app.launch()
+        
+        XCUIDevice.shared.orientation = .portrait
 
         let popoverdismissregionElement = app/*@START_MENU_TOKEN@*/.otherElements["PopoverDismissRegion"]/*[[".otherElements[\"dismiss popup\"]",".otherElements[\"PopoverDismissRegion\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
       

@@ -14,9 +14,12 @@ class StoreViewModel {
     private var masterStore: DataWrapper<StoreData> = DataWrapper()
     private var searchedString: String = ""
     
-    var getSearchedString: String {
+    var searchedStringValue: String {
         get {
             return searchedString
+        }
+        set {
+            searchedString = newValue
         }
     }
     

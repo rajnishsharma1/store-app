@@ -8,6 +8,7 @@
 import Foundation
 
 class StoreRepository {
+    /// Instance of Api Service
     private let apiService: ApiService = ApiService()
     
     // MARK: - Store Detail Data
@@ -39,6 +40,8 @@ class StoreRepository {
         return store
     }
     
+    // MARK: - Search store from core data
+    /// Search store ftom core data and return it in DataWrapper
     func searchStore(searchedStore: String) -> DataWrapper<StoreData> {
         var store: DataWrapper<StoreData> = DataWrapper()
         
