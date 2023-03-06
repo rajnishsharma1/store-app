@@ -50,6 +50,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         
         /// Setting up pull to request
         setupPullToRefresh()
+        myCollectionView?.accessibilityIdentifier = "MainCollectionView"
     }
     
     // MARK: - Setup Slider
@@ -257,6 +258,7 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
     /// UICollectionView - Setting data to custom cell
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductListingCollectionItem.identifer, for: indexPath) as! ProductListingCollectionItem
+        myCell.accessibilityIdentifier = storeItems[indexPath.row].name
         myCell.itemName.text = storeItems[indexPath.row].name
         myCell.itemPrice.text = storeItems[indexPath.row].price
         myCell.itemImage.setCustomImage(storeItems[indexPath.row].image ?? "")

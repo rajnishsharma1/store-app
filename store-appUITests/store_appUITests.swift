@@ -133,6 +133,25 @@ final class store_appUITests: XCTestCase {
         let exploreLabel = app.staticTexts.element(matching: .any, identifier: "Explore")
         XCTAssertTrue(exploreLabel.exists)
     }
+    
+    // Verify Collection View is visible after swiping
+    func test_collection_view_is_visible_on_swipe() {
+        let app = XCUIApplication()
+        // Launch the app
+        app.launch()
+        let collectionView = app.collectionViews["MainCollectionView"]
+        let tableView = app.tables["MainTableView"]
+        let _ = tableView.waitForExistence(timeout: 10)
+        
+        tableView.swipeLeft()
+        
+        XCTAssertTrue(collectionView.waitForExistence(timeout: 2))
+        
+        if collectionView.cells.count > 0 {
+            XCTAssertTrue(collectionView.cells["Item 1"].exists)
+        }
+        
+    }
 
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *) {

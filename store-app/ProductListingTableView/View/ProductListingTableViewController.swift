@@ -48,6 +48,8 @@ class ProductListingTableViewController: UIViewController, NetworkDelegate {
         
         /// Setting up pull to request
         setupPullToRefresh()
+        
+        myTableView?.accessibilityIdentifier = "MainTableView"
     }
     
     // MARK: - Setup Slider
