@@ -12,6 +12,8 @@ class TabbarController: UITabBarController {
     
     // MARK: - UI elements
     private var header: HeaderViewController = HeaderViewController()
+    let firstController = ProductListingTableViewController()
+    let secondController = ProductListingCollectionViewController()
     
     // MARK: - Tab Image
     let tabBarImage: UIImage = UIImage(named: Strings.activeTabButtonImage)!
@@ -66,8 +68,6 @@ class TabbarController: UITabBarController {
     // MARK: - Center Page ViewController
     private func createCenterPageViewController() -> UIPageViewController? {
         
-        let firstController = ProductListingTableViewController()
-        let secondController = ProductListingCollectionViewController()
         let thirdController = EmptyViewController()
         let fourthController = EmptyViewController()
         let fifthController = EmptyViewController()
@@ -110,6 +110,12 @@ class TabbarController: UITabBarController {
         let selectedIndex = viewController.view.tag
         self.tabBar.tintColor = UIColor(named: Strings.unselectedTabButtonBackgroundColor)
         self.tabBar.unselectedItemTintColor = UIColor(named: Strings.unselectedTabButtonBackgroundColor)
+        
+        if selectedIndex == 0 {
+            header.filterDelegate = firstController
+        } else if selectedIndex == 1 {
+            header.filterDelegate = secondController as? any FilterDelegate
+        }
         
         for i in 0..<viewControllers.count {
             let tabbarItem = viewControllers[i].tabBarItem

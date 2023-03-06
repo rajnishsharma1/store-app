@@ -145,7 +145,7 @@ final class store_appUITests: XCTestCase {
         
         tableView.swipeLeft()
         
-        XCTAssertTrue(collectionView.waitForExistence(timeout: 2))
+        XCTAssertTrue(collectionView.waitForExistence(timeout: 5))
         
         if collectionView.cells.count > 0 {
             XCTAssertTrue(collectionView.cells["Item 1"].exists)

@@ -17,6 +17,8 @@ class HeaderViewController : UIViewController, UIPopoverPresentationControllerDe
     private var filterLabel: UILabel = UILabel()
     private var menuButton: UIButton = UIButton()
     
+    var filterDelegate: FilterDelegate!
+    
     // MARK: - Lifecycle
     /// ViewDidLoad Lifecycle
     override func viewDidLoad() {
@@ -69,6 +71,7 @@ class HeaderViewController : UIViewController, UIPopoverPresentationControllerDe
     // MARK: - Filter tap
     /// Filter tap listener
     @objc func onFilterTap() {
+        filterDelegate.filterClickFrom(tabName: "")
         // Get a reference to the view controller for the popover
         let popController = MyPopoverViewController()
 

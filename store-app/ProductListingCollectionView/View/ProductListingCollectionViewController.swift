@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ProductListingCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, NetworkDelegate {
+class ProductListingCollectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UISearchBarDelegate, NetworkDelegate, FilterDelegate {
    
     // MARK: - Properties
     /// Data Objects
@@ -64,6 +64,10 @@ class ProductListingCollectionViewController: UIViewController, UICollectionView
         
         sliderLabel.text = String(storeItems.count)
         sliderLabel.textColor = .black
+    }
+    
+    func filterClickFrom(tabName: String) {
+        print("CollectioView")
     }
     
     // MARK: - Slide value change listener

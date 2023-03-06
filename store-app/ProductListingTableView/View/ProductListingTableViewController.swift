@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ProductListingTableViewController: UIViewController, NetworkDelegate {
+class ProductListingTableViewController: UIViewController, NetworkDelegate, FilterDelegate {
     
     //MARK: - Properties
     /// Data Objects
@@ -78,6 +78,11 @@ class ProductListingTableViewController: UIViewController, NetworkDelegate {
         
         myTableView.reloadData()
     }
+    
+    func filterClickFrom(tabName: String) {
+        print("TableView")
+    }
+    
     
     // MARK: - Set Slider Value
     /// Setting slider value

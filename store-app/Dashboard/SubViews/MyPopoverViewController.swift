@@ -20,6 +20,10 @@ class MyPopoverViewController: UIViewController {
         // UI Properties of popover label
         popoverLabel.text = "Filter Popover"
         popoverLabel.textAlignment = .center
+        popoverLabel.isUserInteractionEnabled = true
+        let popoverLabelGesture = UITapGestureRecognizer(target:self,action:#selector(self.handlePopoverTap))
+        popoverLabel.addGestureRecognizer(popoverLabelGesture)
+
         
         popoverLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(popoverLabel)
@@ -37,5 +41,9 @@ class MyPopoverViewController: UIViewController {
         let labelBottom = NSLayoutConstraint(item: popoverLabel, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
         
         view.addConstraints([labelTop, labelLeading, labelTrailing, labelBottom])
+    }
+    
+    @objc func handlePopoverTap() {
+        print("Popover Tap")
     }
 }
