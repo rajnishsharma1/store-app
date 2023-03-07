@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let navController = UINavigationController(rootViewController: TabbarController())
+        let navController = UINavigationController(rootViewController: AppViewController())
         navController.navigationBar.isHidden = true
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)

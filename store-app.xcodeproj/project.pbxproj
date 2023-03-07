@@ -40,6 +40,7 @@
 		D661681F29B5DF270037050B /* FilterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D661681E29B5DF270037050B /* FilterDelegate.swift */; };
 		D661682129B5DF760037050B /* FilterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D661681E29B5DF270037050B /* FilterDelegate.swift */; };
 		D661682229B5DF780037050B /* FilterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D661681E29B5DF270037050B /* FilterDelegate.swift */; };
+		D661682629B63E840037050B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D661682529B63E840037050B /* MenuViewController.swift */; };
 		D666468A299A5DD0004B1A76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664689299A5DD0004B1A76 /* AppDelegate.swift */; };
 		D666468C299A5DD0004B1A76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D666468B299A5DD0004B1A76 /* SceneDelegate.swift */; };
 		D6664693299A5DD1004B1A76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6664692299A5DD1004B1A76 /* Assets.xcassets */; };
@@ -64,7 +65,7 @@
 		D6664734299DF622004B1A76 /* ProductListingCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664733299DF622004B1A76 /* ProductListingCollectionItem.swift */; };
 		D6664736299E058E004B1A76 /* AppUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664735299E058E004B1A76 /* AppUtils.swift */; };
 		D67D30E129A73BF800D6E318 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67D30E029A73BF800D6E318 /* PageViewController.swift */; };
-		D67D30E529A73C2E00D6E318 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67D30E429A73C2E00D6E318 /* TabbarController.swift */; };
+		D67D30E529A73C2E00D6E318 /* AppViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67D30E429A73C2E00D6E318 /* AppViewController.swift */; };
 		D68303D329AC7AD500FF1B0B /* NetworkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68303D229AC7AD500FF1B0B /* NetworkDelegate.swift */; };
 		D6B9DE06299E495900F2F4E9 /* HeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DE05299E495900F2F4E9 /* HeaderViewController.swift */; };
 		D6B9DE09299E96EA00F2F4E9 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B9DE08299E96EA00F2F4E9 /* Strings.swift */; };
@@ -101,6 +102,7 @@
 		D649636129A21999005DEAAF /* StoreDataItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoreDataItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		D649636629A26437005DEAAF /* CoreDataTestStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestStack.swift; sourceTree = "<group>"; };
 		D661681E29B5DF270037050B /* FilterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDelegate.swift; sourceTree = "<group>"; };
+		D661682529B63E840037050B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		D6664686299A5DD0004B1A76 /* store-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "store-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6664689299A5DD0004B1A76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D666468B299A5DD0004B1A76 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,7 +131,7 @@
 		D6664733299DF622004B1A76 /* ProductListingCollectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingCollectionItem.swift; sourceTree = "<group>"; };
 		D6664735299E058E004B1A76 /* AppUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtils.swift; sourceTree = "<group>"; };
 		D67D30E029A73BF800D6E318 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		D67D30E429A73C2E00D6E318 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
+		D67D30E429A73C2E00D6E318 /* AppViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewController.swift; sourceTree = "<group>"; };
 		D68303D229AC7AD500FF1B0B /* NetworkDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDelegate.swift; sourceTree = "<group>"; };
 		D6B9DE05299E495900F2F4E9 /* HeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewController.swift; sourceTree = "<group>"; };
 		D6B9DE08299E96EA00F2F4E9 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -180,6 +182,14 @@
 				D6D2027229B0C5B30047CA82 /* MyPopoverViewController.swift */,
 			);
 			path = SubViews;
+			sourceTree = "<group>";
+		};
+		D661682429B63E730037050B /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				D661682529B63E840037050B /* MenuViewController.swift */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		D666467D299A5DD0004B1A76 = {
@@ -272,6 +282,7 @@
 		D6664716299CDBE2004B1A76 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
+				D661682429B63E730037050B /* Menu */,
 				D65ACBB629B475F8002B907C /* SubViews */,
 				D67D30DF29A73BDD00D6E318 /* PageView */,
 				D666471D299D10B3004B1A76 /* View */,
@@ -296,7 +307,7 @@
 		D666471D299D10B3004B1A76 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				D67D30E429A73C2E00D6E318 /* TabbarController.swift */,
+				D67D30E429A73C2E00D6E318 /* AppViewController.swift */,
 				D6B9DE05299E495900F2F4E9 /* HeaderViewController.swift */,
 			);
 			path = View;
@@ -540,7 +551,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6664725299D1184004B1A76 /* ProductListingTableViewController.swift in Sources */,
-				D67D30E529A73C2E00D6E318 /* TabbarController.swift in Sources */,
+				D67D30E529A73C2E00D6E318 /* AppViewController.swift in Sources */,
 				D6B9DE14299EBA2300F2F4E9 /* StoreCodeDataModel.xcdatamodeld in Sources */,
 				D6D2027329B0C5B30047CA82 /* MyPopoverViewController.swift in Sources */,
 				D666472F299D3487004B1A76 /* ProductListingTableItem.swift in Sources */,
@@ -570,6 +581,7 @@
 				D666468C299A5DD0004B1A76 /* SceneDelegate.swift in Sources */,
 				D6664706299B8973004B1A76 /* ApiService.swift in Sources */,
 				D613AF47299FEB6600BDBF9E /* EmptyViewController.swift in Sources */,
+				D661682629B63E840037050B /* MenuViewController.swift in Sources */,
 				D66646FF299B5EAB004B1A76 /* StoreModel.swift in Sources */,
 				D666472D299D1CE2004B1A76 /* ErrorViewController.swift in Sources */,
 				D649635E29A20D31005DEAAF /* CoreDataStack.swift in Sources */,

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class TabbarController: UITabBarController {
+class AppViewController: UITabBarController {
     
     // MARK: - UI elements
     private var header: HeaderViewController = HeaderViewController()
@@ -140,7 +140,7 @@ class TabbarController: UITabBarController {
 }
 
 
-extension TabbarController: UITabBarControllerDelegate, PageViewControllerDelegate {
+extension AppViewController: UITabBarControllerDelegate, PageViewControllerDelegate {
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         self.selectPage(at: viewController.view.tag)
