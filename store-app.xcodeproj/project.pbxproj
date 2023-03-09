@@ -41,6 +41,7 @@
 		D661682129B5DF760037050B /* FilterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D661681E29B5DF270037050B /* FilterDelegate.swift */; };
 		D661682229B5DF780037050B /* FilterDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D661681E29B5DF270037050B /* FilterDelegate.swift */; };
 		D661682629B63E840037050B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D661682529B63E840037050B /* MenuViewController.swift */; };
+		D661682929B7A5C50037050B /* SideMenuDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D661682829B7A5C50037050B /* SideMenuDelegate.swift */; };
 		D666468A299A5DD0004B1A76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6664689299A5DD0004B1A76 /* AppDelegate.swift */; };
 		D666468C299A5DD0004B1A76 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D666468B299A5DD0004B1A76 /* SceneDelegate.swift */; };
 		D6664693299A5DD1004B1A76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6664692299A5DD1004B1A76 /* Assets.xcassets */; };
@@ -103,6 +104,7 @@
 		D649636629A26437005DEAAF /* CoreDataTestStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTestStack.swift; sourceTree = "<group>"; };
 		D661681E29B5DF270037050B /* FilterDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterDelegate.swift; sourceTree = "<group>"; };
 		D661682529B63E840037050B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		D661682829B7A5C50037050B /* SideMenuDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuDelegate.swift; sourceTree = "<group>"; };
 		D6664686299A5DD0004B1A76 /* store-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "store-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6664689299A5DD0004B1A76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D666468B299A5DD0004B1A76 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				D6664689299A5DD0004B1A76 /* AppDelegate.swift */,
 				D68303D229AC7AD500FF1B0B /* NetworkDelegate.swift */,
 				D661681E29B5DF270037050B /* FilterDelegate.swift */,
+				D661682829B7A5C50037050B /* SideMenuDelegate.swift */,
 			);
 			path = Delegates;
 			sourceTree = "<group>";
@@ -564,6 +567,7 @@
 				D666468A299A5DD0004B1A76 /* AppDelegate.swift in Sources */,
 				D66646FD299B5DB7004B1A76 /* ItemModel.swift in Sources */,
 				D6B9DEA3299F515500F2F4E9 /* CoreDataHelper.swift in Sources */,
+				D661682929B7A5C50037050B /* SideMenuDelegate.swift in Sources */,
 				D6B9DE06299E495900F2F4E9 /* HeaderViewController.swift in Sources */,
 				D6664715299BB2CE004B1A76 /* StoreViewModel.swift in Sources */,
 				D666470E299BA473004B1A76 /* NetowrkClient.swift in Sources */,

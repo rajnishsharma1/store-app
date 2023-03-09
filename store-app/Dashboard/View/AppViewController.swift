@@ -8,12 +8,17 @@
 import Foundation
 import UIKit
 
-class AppViewController: UITabBarController {
+class AppViewController: UITabBarController, SideMenuDelegate {
     
     // MARK: - UI elements
     private var header: HeaderViewController = HeaderViewController()
     let firstController = ProductListingTableViewController()
     let secondController = ProductListingCollectionViewController()
+    
+    lazy var slideInMenuPadding: CGFloat = self.view.frame.width * 0.50
+    var isSlideInMenuPresented = false
+    
+    lazy var menuViewController = MenuViewController()
     
     // MARK: - Tab Image
     let tabBarImage: UIImage = UIImage(named: Strings.activeTabButtonImage)!
@@ -22,13 +27,34 @@ class AppViewController: UITabBarController {
     /// Lifecycle
     override func viewDidLoad() {
         self.delegate = self
-        view.addSubview(header.view)
         
         tabBar.backgroundColor = UIColor(named: Strings.tabBackgroundColor)
         
         setUpPageView()
         
         self.selectPage(at: 0)
+        
+        setupSideMenu()
+    }
+    
+    // Delegate method that tells if the side menu was triggered.
+    func menuButtonTapped() {
+        self.menuViewController.view.isHidden.toggle()
+        
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseInOut) {
+            self.menuViewController.view.frame.size = CGSize(width: self.view.frame.width * 1, height: self.menuViewController.view.frame.height)
+        } completion: { (finished) in
+            
+        }
+    }
+    
+    /// Setup the Side Menu
+    private func setupSideMenu() {
+        menuViewController.menuButtonDelegate = self
+        menuViewController.view.pinMenuTo(view, with: slideInMenuPadding)
+        menuViewController.view.isHidden = true
+        menuViewController.view.frame.size = CGSize(width: 0, height: self.menuViewController.view.frame.height)
+        menuViewController.view.accessibilityIdentifier = "MenuViewController"
     }
     
     // MARK: - Page View Setup
@@ -73,7 +99,10 @@ class AppViewController: UITabBarController {
         let fifthController = EmptyViewController()
         
         header.searchBar.delegate = firstController
+        header.menuButtonDelegate = self
         firstController.searchDelegate = secondController
+        
+        view.addSubview(header.view)
         
         firstController.view.tag = 0
         secondController.view.tag = 1
@@ -151,6 +180,26 @@ extension AppViewController: UITabBarControllerDelegate, PageViewControllerDeleg
         guard let viewController = self.viewControllers?[index] else { return }
         self.handleTabbarItemChange(viewController: viewController)
     }
+}
+
+
+public extension UIView {
+    func edgeTo(_ view: UIView) {
+        view.addSubview(self)
+        translatesAutoresizingMaskIntoConstraints = false
+        topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
     
+    func pinMenuTo(_ view: UIView, with constant: CGFloat) {
+        view.addSubview(self)
+        translatesAutoresizingMaskIntoConstraints = false
+        topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -constant).isActive = true
+        bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    }
 }
 

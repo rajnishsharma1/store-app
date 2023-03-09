@@ -18,6 +18,7 @@ class HeaderViewController : UIViewController, UIPopoverPresentationControllerDe
     private var menuButton: UIButton = UIButton()
     
     var filterDelegate: FilterDelegate!
+    var menuButtonDelegate: SideMenuDelegate? = nil
     
     // MARK: - Lifecycle
     /// ViewDidLoad Lifecycle
@@ -95,7 +96,7 @@ class HeaderViewController : UIViewController, UIPopoverPresentationControllerDe
     
     // MARK: - Menu tap handler
     @objc private func onMenuTap() {
-        
+        self.menuButtonDelegate?.menuButtonTapped()
     }
     
     // MARK: - Setup menu button
